@@ -1,6 +1,6 @@
 # firebaseui-angular
 
-
+![Screenshot of Login screen](https://raw.githubusercontent.com/RaphaelJenni/FirebaseUI-Angular/master/assets/LoginScreen.PNG)
 
 ## Installation
 
