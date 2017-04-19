@@ -1,5 +1,7 @@
 # firebaseui-angular
 
+
+
 ## Installation
 
 To install this library, run:
@@ -77,22 +79,14 @@ FirebaseUIAuthConfig
 <thead>
 <tr>
 <th>Property</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>providers</td>
-<td>
-<ul>
-<li>AuthMethods.Popup</li>
-<li>AuthMethods.Redirect</li>
-</ul>
-This providers are coming from AngularFire
-</td>
-</tr>
-<tr>
-<td>method</td>
+<td>Yes</td>
 <td>
 <ul>
 <li>AuthProviders.Google</li>
@@ -101,15 +95,46 @@ This providers are coming from AngularFire
 <li>AuthProviders.Github</li>
 <li>AuthProviders.Password</li>
 </ul>
+This providers are coming from AngularFire
+</td>
+</tr>
+<tr>
+<td>method</td>
+<td>No</td>
+<td>
+<ul>
+<li>AuthMethods.Popup</li>
+<li>AuthMethods.Redirect</li>
+</ul>
 This methods are coming from AngularFire
+
+<i>Default: Popup</i>
 </td>
 </tr>
 <tr>
 <td>tos</td>
-<td>The link to your terms of services</td>
+<td>No</td>
+<td>
+The link to your terms of services
+
+<i>Default: '''</i>
+</td>
 </tr>
 </tbody>
 </table>
+
+### Listen to auth state changes
+```typescript
+this.angularFire.auth.subscribe(this.firebaseAuthChangeListener);
+
+private firebaseAuthChangeListener(response) {
+    if (response) {
+      console.log('Logged in :)');
+    } else {
+      console.log('Logged out :(');
+    }
+  }
+```
 
 ## Development
 
