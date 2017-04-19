@@ -1,0 +1,32 @@
+{
+  "name": "firebaseui-angular",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RaphaelJenni/firebaseui-angular"
+  },
+  "author": {
+    "name": "Raphael Jenni",
+    "email": "info@rjenni.ch"
+  },
+  "keywords": [
+    "angular",
+    "firebase",
+    "firebaseui",
+    "angularfire2"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RaphaelJenni/firebaseui-angular/issues"
+  },
+  "module": "firebaseui-angular.js",
+  "typings": "firebaseui-angular.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4",
+    "firebaseui": "^1.0.1",
+    "angularfire2": "^2.0.0-beta.8",
+    "firebase": "^3.8.0"
+  }
+}

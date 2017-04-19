@@ -1,0 +1,17 @@
+// This file is only used to configure the editor during development.
+// It is NOT used for building the library.
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    // Don't auto-discover @types/node, it results in a ///<reference in the .d.ts output
+    "types": []
+  }
+}
