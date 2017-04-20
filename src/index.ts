@@ -5,6 +5,7 @@ import { FirebaseUIService } from './firebaseui.service';
 import 'rxjs/Rx';
 
 export * from './firebaseui.component';
+export * from './firebaseui.service';
 
 /*
  * Created by Raphael Jenni
