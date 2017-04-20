@@ -1,9 +1,7 @@
-import { Component, Inject, InjectionToken, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFire, AuthMethods, AuthProviders, FirebaseApp } from 'angularfire2';
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
-
-export const FirebaseUIAuthConfigInjectionToken = new InjectionToken<FirebaseUIAuthConfig>('FirebaseUIAuthConfigInjectionToken');
 
 export class FirebaseUIAuthConfig {
     providers: AuthProviders[];
