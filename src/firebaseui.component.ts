@@ -1,7 +1,12 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFire, AuthMethods, AuthProviders, FirebaseApp } from 'angularfire2';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AngularFire, AuthMethods, AuthProviders } from 'angularfire2';
 import * as firebase from 'firebase/app';
-import * as firebaseui from 'firebaseui';
+import { FirebaseUIService } from './firebaseui.service';
+
+/*
+ * Created by Raphael Jenni
+ * Copyright (c) 2017 Raphael Jenni
+ */
 
 export class FirebaseUIAuthConfig {
     providers: AuthProviders[];
@@ -19,8 +24,6 @@ export class FirebaseUIAuthConfig {
         <div id="firebaseui-auth-container"></div>`
 })
 export class FirebaseUIComponent implements OnInit {
-
-    private firebaseUiInstance: firebaseui.auth.AuthUI;
 
     private static getUIAuthConfig(authConfig: FirebaseUIAuthConfig): Object {
         let authProviders: Array<string> = [];
@@ -73,8 +76,7 @@ export class FirebaseUIComponent implements OnInit {
 
     constructor(private angularFire: AngularFire,
                 private firebaseUiConfig: FirebaseUIAuthConfig,
-                @Inject(FirebaseApp) firebaseApp: any) {
-        this.firebaseUiInstance = new firebaseui.auth.AuthUI(firebaseApp.auth());
+                private firebaseUIService: FirebaseUIService) {
     }
 
     ngOnInit(): void {
@@ -86,10 +88,11 @@ export class FirebaseUIComponent implements OnInit {
                     throw new Error('There must be at least one AuthProvider.');
                 }
             }
-        });
+        }).unsubscribe();
     }
 
     private firebaseUIPopup() {
-        this.firebaseUiInstance.start('#firebaseui-auth-container', FirebaseUIComponent.getUIAuthConfig(this.firebaseUiConfig));
+        let firebaseUiInstance = this.firebaseUIService.firebaseUiInstance;
+        firebaseUiInstance.start('#firebaseui-auth-container', FirebaseUIComponent.getUIAuthConfig(this.firebaseUiConfig));
     }
 }
