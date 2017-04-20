@@ -80,7 +80,7 @@ export class FirebaseUIComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.angularFire.auth.subscribe(value => {
+        this.angularFire.auth.take(1).subscribe(value => {
             if (!value) {
                 if (this.firebaseUiConfig.providers.length !== 0) {
                     this.firebaseUIPopup();
@@ -88,7 +88,7 @@ export class FirebaseUIComponent implements OnInit {
                     throw new Error('There must be at least one AuthProvider.');
                 }
             }
-        }).unsubscribe();
+        });
     }
 
     private firebaseUIPopup() {

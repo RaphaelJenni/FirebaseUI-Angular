@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FirebaseUIAuthConfig, FirebaseUIComponent } from './firebaseui.component';
 import { FirebaseUIService } from './firebaseui.service';
+import 'rxjs/Rx';
 
 export * from './firebaseui.component';
 
