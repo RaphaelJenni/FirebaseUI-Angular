@@ -16,10 +16,6 @@ export class FirebaseUIAuthConfig {
 
 @Component({
     selector: 'firebase-ui',
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: [
-        '../../node_modules/firebaseui/dist/firebaseui.css'
-    ],
     template: `
         <div id="firebaseui-auth-container"></div>`
 })

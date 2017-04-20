@@ -65,6 +65,27 @@ export class AppModule {
 
 ```
 
+Add the firebaseui css to your imports:
+
+**Angular-CLI**
+
+Path: `"../node_modules/firebaseui/dist/firebaseui.css"`
+```json
+{
+"apps": [
+    {
+      ...
+      "styles": [
+        "styles.css",
+        "../node_modules/firebaseui/dist/firebaseui.css"
+      ],
+      "scripts": [],
+      ...
+    }
+  ]
+}
+```
+
 Once everything is set up, you can use the component in your Angular application:
 
 ```angular2html
