@@ -69,6 +69,8 @@ Add the firebaseui css to your imports:
 
 **Angular-CLI**
 
+File: `.angular-cli.json`
+
 Path: `"../node_modules/firebaseui/dist/firebaseui.css"`
 ```json
 {
@@ -156,6 +158,13 @@ private firebaseAuthChangeListener(response) {
     }
   }
 ```
+
+## Sample
+
+There is a sample project in the `sample` folder.
+Just replace the firebase config in `sample\src\environments\environment.ts`.
+
+Then you can run it via the anuglar-cli.
 
 ## Development
 
