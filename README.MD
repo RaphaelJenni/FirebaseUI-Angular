@@ -180,6 +180,10 @@ To lint all `*.ts` files:
 $ npm run lint
 ```
 
+## Troubleshoot
+### CSS not loaded
+If you have added the css to the .angular-cli.json but nothing happened. Try to restart the server (`Ctrl-C` and `ng serve`)
+
 ## License
 
 MIT © [Raphael Jenni](mailto:info@rjenni.ch)
