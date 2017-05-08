@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
-import { FirebaseApp } from 'angularfire2';
+import {Injectable} from '@angular/core';
 import * as firebaseui from 'firebaseui';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 /*
  * Created by Raphael Jenni
@@ -11,8 +11,8 @@ import * as firebaseui from 'firebaseui';
 export class FirebaseUIService {
     public firebaseUiInstance: firebaseui.auth.AuthUI;
 
-    constructor(@Inject(FirebaseApp) firebaseApp: any) {
-        this.firebaseUiInstance = new firebaseui.auth.AuthUI(firebaseApp.auth());
+    constructor(angularFireAuth: AngularFireAuth) {
+        this.firebaseUiInstance = new firebaseui.auth.AuthUI(angularFireAuth.auth);
 
     }
 }

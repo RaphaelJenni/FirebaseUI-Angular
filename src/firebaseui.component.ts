@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFire, AuthMethods, AuthProviders } from 'angularfire2';
+import {Component, OnInit} from '@angular/core';
 import * as firebase from 'firebase/app';
-import { FirebaseUIService } from './firebaseui.service';
+import {FirebaseUIService} from './firebaseui.service';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 /*
  * Created by Raphael Jenni
@@ -14,10 +14,17 @@ export class FirebaseUIAuthConfig {
     tos?: string;
 }
 
+export enum AuthProviders {
+    Google, Facebook, Twitter, Github, Password
+}
+
+export enum AuthMethods {
+    Popup, Redirect
+}
+
 @Component({
     selector: 'firebase-ui',
-    template: `
-        <div id="firebaseui-auth-container"></div>`
+    template: `<div id="firebaseui-auth-container"></div>`
 })
 export class FirebaseUIComponent implements OnInit {
 
@@ -70,13 +77,13 @@ export class FirebaseUIComponent implements OnInit {
         };
     }
 
-    constructor(private angularFire: AngularFire,
+    constructor(private angularFireAuth: AngularFireAuth,
                 private firebaseUiConfig: FirebaseUIAuthConfig,
                 private firebaseUIService: FirebaseUIService) {
     }
 
     ngOnInit(): void {
-        this.angularFire.auth.take(1).subscribe(value => {
+        this.angularFireAuth.authState.take(1).subscribe(value => {
             if (!value) {
                 if (this.firebaseUiConfig.providers.length !== 0) {
                     this.firebaseUIPopup();

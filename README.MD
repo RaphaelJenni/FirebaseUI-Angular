@@ -23,16 +23,16 @@ Add the `FirebaseUIModule` with the config to your imports. Make sure you have i
 
 
 ```typescript
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
 
-import { AppComponent } from "./app.component";
-import { FirebaseUIAuthConfig, FirebaseUIModule } from "firebaseui-angular";
-import { AngularFireModule, AuthMethods, AuthProviders } from "angularfire2";
-import { environment } from "../environments/environment";
-
+import {AppComponent} from './app.component';
+import {AuthMethods, AuthProviders, FirebaseUIAuthConfig, FirebaseUIModule} from 'firebaseui-angular';
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../environments/environment';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   providers: [
@@ -55,6 +55,7 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
   providers: [],
@@ -62,6 +63,7 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
 })
 export class AppModule {
 }
+
 
 ```
 
@@ -118,7 +120,6 @@ FirebaseUIAuthConfig
 <li>AuthProviders.Github</li>
 <li>AuthProviders.Password</li>
 </ul>
-This providers are coming from AngularFire
 </td>
 </tr>
 <tr>
@@ -129,7 +130,6 @@ This providers are coming from AngularFire
 <li>AuthMethods.Popup</li>
 <li>AuthMethods.Redirect</li>
 </ul>
-This methods are coming from AngularFire
 
 <i>Default: Popup</i>
 </td>
@@ -148,7 +148,7 @@ The link to your terms of services
 
 ### Listen to auth state changes
 ```typescript
-this.angularFire.auth.subscribe(this.firebaseAuthChangeListener);
+this.angularFireAuth.authState.subscribe(this.firebaseAuthChangeListener);
 
 private firebaseAuthChangeListener(response) {
     if (response) {
