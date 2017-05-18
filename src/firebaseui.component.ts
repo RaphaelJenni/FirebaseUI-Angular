@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FirebaseUIService } from './firebaseui.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Subscription } from 'rxjs/Subscription';
 import * as firebase from 'firebase/app';
-import {FirebaseUIService} from './firebaseui.service';
-import {AngularFireAuth} from 'angularfire2/auth';
 
 /*
  * Created by Raphael Jenni
@@ -15,7 +16,7 @@ export class FirebaseUIAuthConfig {
 }
 
 export enum AuthProviders {
-    Google, Facebook, Twitter, Github, Password
+    Google, Facebook, Twitter, Github, Password, Phone
 }
 
 export enum AuthMethods {
@@ -24,9 +25,12 @@ export enum AuthMethods {
 
 @Component({
     selector: 'firebase-ui',
-    template: `<div id="firebaseui-auth-container"></div>`
+    template: `
+        <div id="firebaseui-auth-container"></div>`
 })
-export class FirebaseUIComponent implements OnInit {
+export class FirebaseUIComponent implements OnInit, OnDestroy {
+
+    private subscription: Subscription;
 
     private static getUIAuthConfig(authConfig: FirebaseUIAuthConfig): Object {
         let authProviders: Array<string> = [];
@@ -47,8 +51,11 @@ export class FirebaseUIComponent implements OnInit {
                 case AuthProviders.Password:
                     authProviders.push(firebase.auth.EmailAuthProvider.PROVIDER_ID);
                     break;
+                case AuthProviders.Phone:
+                    authProviders.push(firebase.auth.PhoneAuthProvider.PROVIDER_ID);
+                    break;
                 default:
-                    throw new Error(`Unknown auth provider "${provider}". Valid: [google, facebook, twitter, github, email]`);
+                    throw new Error(`Unknown auth provider "${provider}". Valid: [google, facebook, twitter, github, email, phone]`);
             }
         }
 
@@ -83,7 +90,7 @@ export class FirebaseUIComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.angularFireAuth.authState.take(1).subscribe(value => {
+        this.subscription = this.angularFireAuth.authState.subscribe(value => {
             if (!value) {
                 if (this.firebaseUiConfig.providers.length !== 0) {
                     this.firebaseUIPopup();
@@ -92,6 +99,10 @@ export class FirebaseUIComponent implements OnInit {
                 }
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     private firebaseUIPopup() {

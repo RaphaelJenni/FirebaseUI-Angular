@@ -1,6 +1,6 @@
 {
   "name": "firebaseui-angular",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/RaphaelJenni/firebaseui-angular"
@@ -25,8 +25,8 @@
     "@angular/core": "^4.1.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4",
-    "firebaseui": "^1.0.1",
+    "firebaseui": "^2.0.0",
     "angularfire2": "^4.0.0-rc.0",
-    "firebase": "^3.9.0"
+    "firebase": "^4.0.0"
   }
 }

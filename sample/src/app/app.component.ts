@@ -1,5 +1,4 @@
-import {Component} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +7,4 @@ import {AngularFireAuth} from 'angularfire2/auth';
 })
 export class AppComponent {
 
-  constructor(private afAuth: AngularFireAuth) {
-    afAuth.authState.subscribe(d => console.log(d));
-  }
-
-  logout() {
-    this.afAuth.auth.signOut();
-  }
 }

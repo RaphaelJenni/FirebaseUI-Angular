@@ -40,7 +40,8 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
     AuthProviders.Facebook,
     AuthProviders.Twitter,
     AuthProviders.Github,
-    AuthProviders.Password
+    AuthProviders.Password,
+    AuthProviders.Phone
   ],
   method: AuthMethods.Popup,
   tos: '<your-tos-link>'
@@ -119,6 +120,7 @@ FirebaseUIAuthConfig
 <li>AuthProviders.Twitter,</li>
 <li>AuthProviders.Github</li>
 <li>AuthProviders.Password</li>
+<li>AuthProviders.Phone</li>
 </ul>
 </td>
 </tr>
@@ -158,6 +160,7 @@ private firebaseAuthChangeListener(response) {
     }
   }
 ```
+Don't forget to unsubscribe at the end.
 
 ## Sample
 
@@ -183,6 +186,12 @@ $ npm run lint
 ## Troubleshoot
 ### CSS not loaded
 If you have added the css to the .angular-cli.json but nothing happened. Try to restart the server (`Ctrl-C` and `ng serve`)
+
+### ERROR in ./~/firebase/app/shared_promise.js
+
+ This is a know issue in the firebase project. To fix that (for now), do that:
+ 
+`npm install promise-polyfill --save-exact`
 
 ## License
 

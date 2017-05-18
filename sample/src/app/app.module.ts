@@ -8,6 +8,9 @@ import {AuthMethods, AuthProviders, FirebaseUIAuthConfig, FirebaseUIModule} from
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import { SecondPageComponent } from './second-page/second-page.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MainComponent } from './main/main.component';
 
 const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   providers: [
@@ -15,7 +18,8 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
     AuthProviders.Facebook,
     AuthProviders.Twitter,
     AuthProviders.Github,
-    AuthProviders.Password
+    AuthProviders.Password,
+    AuthProviders.Phone
   ],
   method: AuthMethods.Popup,
   tos: '<your-tos-link>'
@@ -23,12 +27,15 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SecondPageComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig)

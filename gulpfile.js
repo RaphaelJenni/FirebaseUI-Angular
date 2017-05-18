@@ -46,7 +46,7 @@ gulp.task('inline-resources', function () {
  */
 gulp.task('ngc', function () {
   return ngc({
-    project: `${tmpFolder}/tsconfig.es5.json`
+    project: `${tmpFolder}/tsconfig.json`
   })
     .then((exitCode) => {
       if (exitCode === 1) {

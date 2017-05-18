@@ -11,8 +11,11 @@
     "outDir": "../build",
     "rootDir": ".",
     "lib": [
-      "es2015",
+      "es2016",
       "dom"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
     ],
     "skipLibCheck": true,
     "types": []

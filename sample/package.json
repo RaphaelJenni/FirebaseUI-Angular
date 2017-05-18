@@ -22,9 +22,9 @@
     "@angular/router": "^4.1.1",
     "angularfire2": "^4.0.0-rc.0",
     "core-js": "^2.4.1",
-    "firebase": "^3.9.0",
-    "firebaseui": "^1.0.1",
-    "firebaseui-angular": "^0.1.5",
+    "firebase": "^4.0.0",
+    "firebaseui": "^2.0.0",
+    "firebaseui-angular": "0.3.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

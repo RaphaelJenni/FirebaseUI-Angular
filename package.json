@@ -23,12 +23,12 @@
     "url": "https://github.com/RaphaelJenni/firebaseui-angular/issues"
   },
   "devDependencies": {
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/common": "^4.1.1",
+    "@angular/compiler": "^4.1.1",
+    "@angular/compiler-cli": "^4.1.1",
+    "@angular/core": "^4.1.1",
+    "@angular/platform-browser": "^4.1.1",
+    "@angular/platform-browser-dynamic": "^4.1.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
@@ -54,8 +54,8 @@
     "typescript": "~2.2.0",
     "zone.js": "^0.8.4",
     "angularfire2": "^4.0.0-rc.0",
-    "firebase": "^3.8.0",
-    "firebaseui": "^1.0.1"
+    "firebase": "^4.0.0",
+    "firebaseui": "^2.0.0"
   },
   "engines": {
     "node": ">=6.0.0"
