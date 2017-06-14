@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+* Upgraded to Firebase 4.1.2 / FirebaseUI 2.1.1 / AngularFire 4.0.0-rc.1
+* Released version 0.4.0
+
+Issue [#7](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/7)
+
 ## 0.3.0
 * Upgraded to Firebase 4.0.0 / FirebaseUI 2.0.0
 * Fixed modal showing bug [#5](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/5)
