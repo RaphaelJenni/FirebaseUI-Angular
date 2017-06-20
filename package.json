@@ -31,9 +31,12 @@
     "@angular/platform-browser-dynamic": "^4.2.2",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
+    "angularfire2": "^4.0.0-rc.1",
     "codelyzer": "~2.0.0",
     "core-js": "^2.4.1",
     "del": "^2.2.2",
+    "firebase": "^4.1.2",
+    "firebaseui": "^2.1.1",
     "gulp": "^3.9.1",
     "gulp-rollup": "^2.11.0",
     "jasmine-core": "~2.5.2",
@@ -52,10 +55,7 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.3.4",
-    "zone.js": "^0.8.12",
-    "angularfire2": "^4.0.0-rc.1",
-    "firebase": "^4.1.2",
-    "firebaseui": "^2.1.1"
+    "zone.js": "^0.8.12"
   },
   "engines": {
     "node": ">=6.0.0"

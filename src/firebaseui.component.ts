@@ -10,8 +10,9 @@ import * as firebase from 'firebase/app';
  */
 
 export class FirebaseUIAuthConfig {
-    providers: AuthProviders[];
+    providers: AuthProviders[] | Object[];
     method?: AuthMethods;
+    signInSuccessUrl?: string;
     tos?: string;
 }
 
@@ -33,7 +34,7 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
 
     private static getUIAuthConfig(authConfig: FirebaseUIAuthConfig): Object {
-        let authProviders: Array<string> = [];
+        let authProviders: Array<Object> = [];
         for (let provider of authConfig.providers) {
             switch (provider) {
                 case AuthProviders.Google:
@@ -55,17 +56,16 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
                     authProviders.push(firebase.auth.PhoneAuthProvider.PROVIDER_ID);
                     break;
                 default:
-                    throw new Error(`Unknown auth provider "${provider}". Valid: [google, facebook, twitter, github, email, phone]`);
+                    authProviders.push(authProviders);
             }
         }
 
         let tosURL = authConfig.tos ? authConfig.tos : '';
 
-        let authMethod: string;
+        let authMethod = 'popup';
         switch (authConfig.method) {
             case null:
             case AuthMethods.Popup:
-                authMethod = 'popup';
                 break;
             case AuthMethods.Redirect:
                 authMethod = 'redirect';
