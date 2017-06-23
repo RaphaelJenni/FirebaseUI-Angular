@@ -87,10 +87,10 @@ gulp.task('copy:build', function () {
 });
 
 /**
- * 7. Copy package.json from /src to /dist
+ * 7. Copy package.json and README to /dist
  */
 gulp.task('copy:manifest', function () {
-  return gulp.src([`${srcFolder}/package.json`])
+  return gulp.src([`${srcFolder}/package.json`, `${rootFolder}/README.md`])
     .pipe(gulp.dest(distFolder));
 });
 

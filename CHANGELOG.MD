@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.2
+* Added README to npm
+
 ## 0.4.1
 * Custom configs can be set now
 * RedirectUrl can be set now
