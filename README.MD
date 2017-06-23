@@ -148,7 +148,7 @@ FirebaseUIAuthConfig
 <li>AuthProvider.Phone</li>
 </ul>
 
-or [AuthProviderWithCustomConfig](#AuthProviderWithCustomConfig)
+or [AuthProviderWithCustomConfig](#authproviderwithcustomconfig)
 </td>
 </tr>
 <tr>
