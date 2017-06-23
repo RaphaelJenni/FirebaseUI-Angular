@@ -10,14 +10,28 @@ import * as firebase from 'firebase/app';
  */
 
 export class FirebaseUIAuthConfig {
-    providers: AuthProviders[] | Object[];
+    providers: Array<AuthProvider | AuthProviderWithCustomConfig | AuthProviders>;
     method?: AuthMethods;
     signInSuccessUrl?: string;
     tos?: string;
 }
 
+export enum AuthProvider {
+    Google, Facebook, Twitter, Github, Password, Phone
+}
+
+
+/**
+ * @deprecated Because of bad naming, this will be removed in 0.6.0. Use AuthProvider instead.
+ */
 export enum AuthProviders {
     Google, Facebook, Twitter, Github, Password, Phone
+}
+
+
+export interface AuthProviderWithCustomConfig {
+    provider: AuthProvider;
+    customConfig: Object;
 }
 
 export enum AuthMethods {
@@ -36,27 +50,15 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
     private static getUIAuthConfig(authConfig: FirebaseUIAuthConfig): Object {
         let authProviders: Array<Object> = [];
         for (let provider of authConfig.providers) {
-            switch (provider) {
-                case AuthProviders.Google:
-                    authProviders.push(firebase.auth.GoogleAuthProvider.PROVIDER_ID);
-                    break;
-                case AuthProviders.Facebook:
-                    authProviders.push(firebase.auth.FacebookAuthProvider.PROVIDER_ID);
-                    break;
-                case AuthProviders.Twitter:
-                    authProviders.push(firebase.auth.TwitterAuthProvider.PROVIDER_ID);
-                    break;
-                case AuthProviders.Github:
-                    authProviders.push(firebase.auth.GithubAuthProvider.PROVIDER_ID);
-                    break;
-                case AuthProviders.Password:
-                    authProviders.push(firebase.auth.EmailAuthProvider.PROVIDER_ID);
-                    break;
-                case AuthProviders.Phone:
-                    authProviders.push(firebase.auth.PhoneAuthProvider.PROVIDER_ID);
-                    break;
-                default:
-                    authProviders.push(authProviders);
+            if (!!(provider as AuthProviderWithCustomConfig).customConfig) {
+                provider = (provider as AuthProviderWithCustomConfig);
+
+                let providerWithConfig = provider.customConfig;
+                providerWithConfig['provider'] = FirebaseUIComponent.getAuthProvider(provider.provider);
+
+                authProviders.push(providerWithConfig);
+            } else {
+                authProviders.push(FirebaseUIComponent.getAuthProvider(provider as AuthProvider));
             }
         }
 
@@ -74,14 +76,44 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
                 throw new Error(`Unknown auth method. Valid: [AuthMethods.Popup, AuthMethods.Redirect]`);
         }
 
-        return {
-            callbacks: {
-                signInSuccess: () => false
-            },
-            signInFlow: authMethod,
-            signInOptions: authProviders,
-            tosUrl: tosURL
-        };
+        if (!!authConfig.signInSuccessUrl) {
+            return {
+                callbacks: {
+                    signInSuccess: () => true
+                },
+                signInSuccessUrl: authConfig.signInSuccessUrl,
+                signInFlow: authMethod,
+                signInOptions: authProviders,
+                tosUrl: tosURL
+            };
+        } else {
+            return {
+                callbacks: {
+                    signInSuccess: () => false
+                },
+                signInFlow: authMethod,
+                signInOptions: authProviders,
+                tosUrl: tosURL
+            };
+        }
+
+    }
+
+    private static getAuthProvider(provider: AuthProvider): string {
+        switch (provider) {
+            case AuthProvider.Google:
+                return firebase.auth.GoogleAuthProvider.PROVIDER_ID;
+            case AuthProvider.Facebook:
+                return firebase.auth.FacebookAuthProvider.PROVIDER_ID;
+            case AuthProvider.Twitter:
+                return firebase.auth.TwitterAuthProvider.PROVIDER_ID;
+            case AuthProvider.Github:
+                return firebase.auth.GithubAuthProvider.PROVIDER_ID;
+            case AuthProvider.Password:
+                return firebase.auth.EmailAuthProvider.PROVIDER_ID;
+            case AuthProvider.Phone:
+                return firebase.auth.PhoneAuthProvider.PROVIDER_ID;
+        }
     }
 
     constructor(private angularFireAuth: AngularFireAuth,

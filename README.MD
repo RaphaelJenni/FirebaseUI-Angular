@@ -23,25 +23,44 @@ Add the `FirebaseUIModule` with the config to your imports. Make sure you have i
 
 
 ```typescript
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
-import {AppComponent} from './app.component';
-import {AuthMethods, AuthProviders, FirebaseUIAuthConfig, FirebaseUIModule} from 'firebaseui-angular';
-import {AngularFireModule} from 'angularfire2';
-import {environment} from '../environments/environment';
-import {AngularFireAuthModule} from 'angularfire2/auth';
+import { AppComponent } from './app.component';
+import { AuthMethods, AuthProvider, FirebaseUIAuthConfig, FirebaseUIModule, AuthProviderWithCustomConfig } from 'firebaseui-angular';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SecondPageComponent } from './second-page/second-page.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MainComponent } from './main/main.component';
+
+const facebookCustomConfig: AuthProviderWithCustomConfig = {
+  provider: AuthProvider.Facebook,
+  customConfig: {
+    scopes: [
+      'public_profile',
+      'email',
+      'user_likes',
+      'user_friends'
+    ],
+    customParameters: {
+      // Forces password re-entry.
+      auth_type: 'reauthenticate'
+    }
+  }
+};
 
 const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   providers: [
-    AuthProviders.Google,
-    AuthProviders.Facebook,
-    AuthProviders.Twitter,
-    AuthProviders.Github,
-    AuthProviders.Password,
-    AuthProviders.Phone
+    AuthProvider.Google,
+    facebookCustomConfig,
+    AuthProvider.Twitter,
+    AuthProvider.Github,
+    AuthProvider.Password,
+    AuthProvider.Phone
   ],
   method: AuthMethods.Popup,
   tos: '<your-tos-link>'
@@ -49,12 +68,15 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SecondPageComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig)
@@ -64,6 +86,7 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
 })
 export class AppModule {
 }
+
 
 
 ```
@@ -101,6 +124,8 @@ Once everything is set up, you can use the component in your Angular application
 
 FirebaseUIAuthConfig
 
+**Attention: In 0.4.1 the ENUM `AuthProviders` changed to `AuthProvider`. The old will be removed in 0.6.0**
+
 <table>
 <thead>
 <tr>
@@ -115,13 +140,15 @@ FirebaseUIAuthConfig
 <td>Yes</td>
 <td>
 <ul>
-<li>AuthProviders.Google</li>
-<li>AuthProviders.Facebook</li>
-<li>AuthProviders.Twitter,</li>
-<li>AuthProviders.Github</li>
-<li>AuthProviders.Password</li>
-<li>AuthProviders.Phone</li>
+<li>AuthProvider.Google</li>
+<li>AuthProvider.Facebook</li>
+<li>AuthProvider.Twitter,</li>
+<li>AuthProvider.Github</li>
+<li>AuthProvider.Password</li>
+<li>AuthProvider.Phone</li>
 </ul>
+
+or [AuthProviderWithCustomConfig](#AuthProviderWithCustomConfig)
 </td>
 </tr>
 <tr>
@@ -145,14 +172,36 @@ The link to your terms of services
 <i>Default: '''</i>
 </td>
 </tr>
+<tr>
+<td>signInSuccessUrl</td>
+<td>No</td>
+<td>
+The url whre the user should be redirected.
+
+It is a hard redirect, so it isn't the angular way. Better do it with authState listener.
+
+<i>Default: No redirect</i>
+</td>
+</tr>
 </tbody>
 </table>
+
+#### AuthProviderWithCustomConfig
+To see the custom configs, check the firebaseUI doc: [Provider configuration](https://github.com/firebase/firebaseui-web#configure-oauth-providers)
+
+```json
+ provider: AuthProvider.Facebook,
+ customConfig: {
+    ...
+  }
+```
 
 ### Listen to auth state changes
 ```typescript
 this.angularFireAuth.authState.subscribe(this.firebaseAuthChangeListener);
 
 private firebaseAuthChangeListener(response) {
+    // if needed, do a redirect in here
     if (response) {
       console.log('Logged in :)');
     } else {
