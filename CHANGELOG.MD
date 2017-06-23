@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.1
+* Custom configs can be set now
+* RedirectUrl can be set now
+* Changed enum name AuthProviders -> AuthProvider
+
+Issue [#8](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/8)
+
 ## 0.4.0
 * Upgraded to Firebase 4.1.2 / FirebaseUI 2.1.1 / AngularFire 4.0.0-rc.1
 * Released version 0.4.0

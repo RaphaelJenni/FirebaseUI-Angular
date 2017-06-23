@@ -3,7 +3,7 @@
 npm-debug.log
 
 # TypeScript
-**/src/**/*.js
+**/*.js
 **/src/**/*.map
 **/src/**/*.d.ts
 
@@ -31,3 +31,4 @@ Desktop.ini
 # Build files
 **/dist/*
 
+**/package-lock.json
