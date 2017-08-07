@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.3
+* signInSuccess callback needed [#14](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/14)
+* added a helper file for all the classes and enums
+
 ## 0.4.2
 * Added README to npm
 
