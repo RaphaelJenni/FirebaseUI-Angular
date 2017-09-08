@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SecondPageComponent } from './second-page/second-page.component';
-import { MainComponent } from './main/main.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path: 'page', component: SecondPageComponent},
-  {path: '', component: MainComponent}
+  {path: 'page', loadChildren: 'app/second-page/second.module#SecondModule'},
+  {path: '', loadChildren: 'app/main/main.module#MainModule'},
 ];
 
 @NgModule({

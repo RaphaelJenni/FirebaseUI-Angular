@@ -1,5 +1,6 @@
 <p>
   second-page works
 </p>
+<firebase-ui (signInSuccess)="successCallback($event)"></firebase-ui>
 <button (click)="logout()">Logout</button>
 <button [routerLink]="['/']">Back to main</button>

@@ -23,6 +23,7 @@
     "url": "https://github.com/RaphaelJenni/firebaseui-angular/issues"
   },
   "devDependencies": {
+    "@angular/cli": "^1.4.0",
     "@angular/common": "^4.2.2",
     "@angular/compiler": "^4.2.2",
     "@angular/compiler-cli": "^4.2.2",
