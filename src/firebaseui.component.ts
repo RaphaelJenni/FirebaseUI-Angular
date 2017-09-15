@@ -1,12 +1,14 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {FirebaseUIService} from './firebaseui.service';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FirebaseUIService } from './firebaseui.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Subscription } from 'rxjs/Subscription';
 import * as firebase from 'firebase/app';
+import * as firebaseui from 'firebaseui';
 import {
     AuthMethods,
     AuthProvider,
     AuthProviderWithCustomConfig,
+    CredentialHelper,
     FirebaseUIAuthConfig,
     FirebaseUISignInSuccess
 } from './firebaseui.helper';
@@ -94,45 +96,52 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
                 throw new Error(`Unknown auth method. Valid: [AuthMethods.Popup, AuthMethods.Redirect]`);
         }
 
-        if (!!authConfig.signInSuccessUrl) {
-            return {
-                callbacks: {
-                    signInSuccess: (currentUser, credential, redirectUrl) => {
-                        this.signInSuccessCallback.emit({
-                            currentUser,
-                            credential,
-                            redirectUrl
-                        });
-                        return true;
-                    }
-                },
-                signInSuccessUrl: authConfig.signInSuccessUrl,
-                signInFlow: authMethod,
-                signInOptions: authProviders,
-                tosUrl: tosURL
-            };
-        } else {
-            return {
-                callbacks: {
-                    signInSuccess: (currentUser, credential, redirectUrl) => {
-                        this.signInSuccessCallback.emit({
-                            currentUser,
-                            credential,
-                            redirectUrl
-                        });
-                        return false;
-                    }
-                },
-                signInFlow: authMethod,
-                signInOptions: authProviders,
-                tosUrl: tosURL
-            };
+        let credentialHelper;
+        switch (authConfig.credentialHelper) {
+            case CredentialHelper.None:
+                credentialHelper = firebaseui.auth.CredentialHelper.NONE;
+                break;
+            case CredentialHelper.AccountChooser:
+            default:
+                credentialHelper = firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM;
+                break;
         }
 
+        let nativeConfiguration: FirebaseUINativeConfiguration = {
+            callbacks: {
+                signInSuccess: (currentUser, credential, redirectUrl) => {
+                    this.signInSuccessCallback.emit({
+                        currentUser,
+                        credential,
+                        redirectUrl
+                    });
+                    return !!authConfig.signInSuccessUrl;
+                }
+            },
+            signInFlow: authMethod,
+            signInOptions: authProviders,
+            tosUrl: tosURL,
+            credentialHelper: credentialHelper
+        };
+        if (!!authConfig.signInSuccessUrl) {
+            nativeConfiguration.signInSuccessUrl = authConfig.signInSuccessUrl;
+        }
+        return nativeConfiguration;
     }
 
     private firebaseUIPopup() {
         let firebaseUiInstance = this.firebaseUIService.firebaseUiInstance;
         firebaseUiInstance.start('#firebaseui-auth-container', this.getUIAuthConfig(this.firebaseUiConfig));
     }
+}
+
+interface FirebaseUINativeConfiguration {
+    callbacks?: any;
+    credentialHelper?: any;
+    queryParameterForSignInSuccessUrl?: string;
+    queryParameterForWidgetMode?: string;
+    signInFlow?: string;
+    signInOptions?: any;
+    signInSuccessUrl?: string;
+    tosUrl: string;
 }

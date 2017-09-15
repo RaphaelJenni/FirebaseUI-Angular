@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {AuthMethods, AuthProvider, AuthProviderWithCustomConfig, FirebaseUIAuthConfig, FirebaseUIModule} from 'firebaseui-angular';
+import {AuthMethods, AuthProvider, AuthProviderWithCustomConfig, FirebaseUIAuthConfig, FirebaseUIModule, CredentialHelper} from 'firebaseui-angular';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from 'angularfire2/auth';
@@ -36,7 +36,8 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
     AuthProvider.Phone
   ],
   method: AuthMethods.Popup,
-  tos: '<your-tos-link>'
+  tos: '<your-tos-link>',
+  credentialHelper: CredentialHelper.AccountChooser
 };
 
 @NgModule({

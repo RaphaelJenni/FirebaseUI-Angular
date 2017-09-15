@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.5
+* credentialHelper [#20](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/20)
+
+## 0.4.4
+* Lazy loading FirebaseUIModule [#19](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/19)
+
 ## 0.4.3
 * signInSuccess callback needed [#14](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/14)
 * added a helper file for all the classes and enums

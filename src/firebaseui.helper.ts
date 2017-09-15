@@ -10,12 +10,17 @@ export class FirebaseUIAuthConfig {
     method?: AuthMethods;
     signInSuccessUrl?: string;
     tos?: string;
+    credentialHelper?: CredentialHelper;
 }
 
 export class FirebaseUISignInSuccess {
     currentUser: firebase.User;
     credential: firebase.auth.AuthCredential;
     redirectUrl: string;
+}
+
+export enum CredentialHelper {
+    AccountChooser, None
 }
 
 export enum AuthProvider {
