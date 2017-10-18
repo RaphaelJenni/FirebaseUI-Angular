@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.0
+* adjust the plugin version to the firebaseui version
+* updated dependency to firebaseui 2.4.0 / angularfire 25.0.0-rc.3 / firebase 4.5.2
+
 ## 0.4.5
 * credentialHelper [#20](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/20)
 
