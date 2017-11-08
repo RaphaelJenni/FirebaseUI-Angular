@@ -228,7 +228,7 @@ successCallback(signInSuccessData: FirebaseUISignInSuccess) {
 There is a sample project in the `sample` folder.
 Just replace the firebase config in `sample\src\environments\environment.ts`.
 
-Then you can run it via the anuglar-cli.
+Then you can run it via the angular-cli.
 
 ## Development
 
