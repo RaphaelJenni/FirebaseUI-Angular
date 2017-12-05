@@ -20,7 +20,7 @@ export class FirebaseUISignInSuccess {
 }
 
 export enum CredentialHelper {
-    AccountChooser, None
+    AccountChooser, OneTap, None
 }
 
 export enum AuthProvider {

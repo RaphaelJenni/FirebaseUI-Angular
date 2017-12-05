@@ -12,18 +12,18 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^4.3.0",
-    "@angular/compiler": "^4.3.0",
-    "@angular/core": "^4.3.0",
-    "@angular/forms": "^4.3.0",
-    "@angular/http": "^4.3.0",
-    "@angular/platform-browser": "^4.3.0",
-    "@angular/platform-browser-dynamic": "^4.3.0",
-    "@angular/router": "^4.3.0",
-    "angularfire2": "^5.0.0-rc.3",
+    "@angular/common": "^5.0.3",
+    "@angular/compiler": "^5.0.3",
+    "@angular/core": "^5.0.3",
+    "@angular/forms": "^5.0.3",
+    "@angular/http": "^5.0.3",
+    "@angular/platform-browser": "^5.0.3",
+    "@angular/platform-browser-dynamic": "^5.0.3",
+    "@angular/router": "^5.0.3",
+    "angularfire2": "^5.0.0-rc.4",
     "core-js": "^2.4.1",
-    "firebase": "^4.5.2",
-    "firebaseui": "^2.4.0",
+    "firebase": "^4.6.2",
+    "firebaseui": "^2.5.1",
     "firebaseui-angular": "^2.4.0",
     "promise-polyfill": "6.0.2",
     "rxjs": "^5.4.0",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.4.7",
-    "@angular/compiler-cli": "^4.3.0",
+    "@angular/compiler-cli": "^5.0.3",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
@@ -46,6 +46,6 @@
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0"
+    "typescript": "^2.4.2"
   }
 }

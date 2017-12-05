@@ -64,7 +64,9 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        if (!!this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     private getUIAuthConfig(authConfig: FirebaseUIAuthConfig): Object {
@@ -100,6 +102,9 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
         switch (authConfig.credentialHelper) {
             case CredentialHelper.None:
                 credentialHelper = firebaseui.auth.CredentialHelper.NONE;
+                break;
+            case CredentialHelper.OneTap:
+                credentialHelper = firebaseui.auth.CredentialHelper.YOLO_GOOGLE;
                 break;
             case CredentialHelper.AccountChooser:
             default:
