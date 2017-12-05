@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {FirebaseUIComponent} from './firebaseui.component';
 import {FirebaseUIService} from './firebaseui.service';
 import {FirebaseUIAuthConfig} from './firebaseui.helper';
-import 'rxjs/Rx';
 
 export * from './firebaseui.component';
 export * from './firebaseui.service';
