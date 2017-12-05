@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
  */
 
 export class FirebaseUIAuthConfig {
-    providers: Array<AuthProvider | AuthProviderWithCustomConfig | AuthProviders>;
+    providers: Array<AuthProvider | AuthProviderWithCustomConfig>;
     method?: AuthMethods;
     signInSuccessUrl?: string;
     tos?: string;
@@ -26,15 +26,6 @@ export enum CredentialHelper {
 export enum AuthProvider {
     Google, Facebook, Twitter, Github, Password, Phone
 }
-
-
-/**
- * @deprecated Because of bad naming, this will be removed in 0.6.0. Use AuthProvider instead.
- */
-export enum AuthProviders {
-    Google, Facebook, Twitter, Github, Password, Phone
-}
-
 
 export interface AuthProviderWithCustomConfig {
     provider: AuthProvider;

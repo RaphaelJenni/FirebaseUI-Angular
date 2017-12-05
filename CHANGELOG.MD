@@ -1,4 +1,12 @@
 # Changelog
+## 2.5.1
+* Updated README
+* Removed deprecated ENUM
+
+## 2.5.0
+* Fixed [#25](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/25)
+* Updated libraries
+* Added one-tap sign-up [#27](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/27)
 
 ## 2.4.0
 * adjust the plugin version to the firebaseui version

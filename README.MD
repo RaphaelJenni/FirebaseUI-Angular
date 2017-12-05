@@ -29,13 +29,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { AuthMethods, AuthProvider, FirebaseUIAuthConfig, FirebaseUIModule, AuthProviderWithCustomConfig } from 'firebaseui-angular';
+import {
+  AuthMethods,
+  AuthProvider,
+  AuthProviderWithCustomConfig,
+  CredentialHelper,
+  FirebaseUIAuthConfig,
+  FirebaseUIModule
+} from 'firebaseui-angular';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { SecondPageComponent } from './second-page/second-page.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MainComponent } from './main/main.component';
 
 const facebookCustomConfig: AuthProviderWithCustomConfig = {
   provider: AuthProvider.Facebook,
@@ -63,14 +68,13 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
     AuthProvider.Phone
   ],
   method: AuthMethods.Popup,
-  tos: '<your-tos-link>'
+  tos: '<your-tos-link>',
+  credentialHelper: CredentialHelper.AccountChooser
 };
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SecondPageComponent,
-    MainComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -86,8 +90,6 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
 })
 export class AppModule {
 }
-
-
 
 ```
 
@@ -123,8 +125,6 @@ Once everything is set up, you can use the component in your Angular application
 ### Config
 
 FirebaseUIAuthConfig
-
-**Attention: In 0.4.1 the ENUM `AuthProviders` changed to `AuthProvider`. The old will be removed in 0.6.0**
 
 <table>
 <thead>
@@ -181,6 +181,19 @@ The url whre the user should be redirected.
 It is a hard redirect, so it isn't the angular way. Better do it with authState listener.
 
 <i>Default: No redirect</i>
+</td>
+</tr>
+<tr>
+<td>CredentialHelper</td>
+<td>No</td>
+<td>
+<ul>
+<li>AccountChooser</li>
+<li>OneTap</li>
+<li>None</li>
+</ul>
+
+<i>Default: AccountChooser</i>
 </td>
 </tr>
 </tbody>
