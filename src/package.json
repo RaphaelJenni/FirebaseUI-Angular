@@ -27,6 +27,6 @@
     "zone.js": "^0.8.18",
     "firebaseui": "^2.5.1",
     "angularfire2": "^5.0.0-rc.4",
-    "firebase": "^4.6.2"
+    "firebase": "^4.8.1"
   }
 }
