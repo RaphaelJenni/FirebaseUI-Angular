@@ -104,7 +104,7 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
                 credentialHelper = firebaseui.auth.CredentialHelper.NONE;
                 break;
             case CredentialHelper.OneTap:
-                credentialHelper = firebaseui.auth.CredentialHelper.YOLO_GOOGLE;
+                credentialHelper = firebaseui.auth.CredentialHelper.GOOGLE_YOLO;
                 break;
             case CredentialHelper.AccountChooser:
             default:
