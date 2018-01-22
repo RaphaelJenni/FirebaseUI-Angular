@@ -1,4 +1,11 @@
 # Changelog
+
+## 2.5.3
+* Fixed ONE_TAP Login - [pull/30](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/30)
+
+## 2.5.2
+* Removed rxjs import
+
 ## 2.5.1
 * Updated README
 * Removed deprecated ENUM
