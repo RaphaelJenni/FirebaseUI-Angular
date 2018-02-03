@@ -2,16 +2,17 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { FirebaseUIService } from './firebaseui.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subscription } from 'rxjs/Subscription';
-import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import {
-    AuthMethods,
-    AuthProvider,
-    AuthProviderWithCustomConfig,
-    CredentialHelper,
-    FirebaseUIAuthConfig,
+    AuthMethods, AuthProvider, AuthProviderWithCustomConfig, CredentialHelper, FirebaseUIAuthConfig,
     FirebaseUISignInSuccess
 } from './firebaseui.helper';
+
+import {
+    EmailAuthProvider, FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, PhoneAuthProvider,
+    TwitterAuthProvider
+} from '@firebase/auth-types';
+
 
 /*
  * Created by Raphael Jenni
@@ -32,17 +33,17 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
     private static getAuthProvider(provider: AuthProvider): string {
         switch (provider) {
             case AuthProvider.Google:
-                return firebase.auth.GoogleAuthProvider.PROVIDER_ID;
+                return GoogleAuthProvider.PROVIDER_ID;
             case AuthProvider.Facebook:
-                return firebase.auth.FacebookAuthProvider.PROVIDER_ID;
+                return FacebookAuthProvider.PROVIDER_ID;
             case AuthProvider.Twitter:
-                return firebase.auth.TwitterAuthProvider.PROVIDER_ID;
+                return TwitterAuthProvider.PROVIDER_ID;
             case AuthProvider.Github:
-                return firebase.auth.GithubAuthProvider.PROVIDER_ID;
+                return GithubAuthProvider.PROVIDER_ID;
             case AuthProvider.Password:
-                return firebase.auth.EmailAuthProvider.PROVIDER_ID;
+                return EmailAuthProvider.PROVIDER_ID;
             case AuthProvider.Phone:
-                return firebase.auth.PhoneAuthProvider.PROVIDER_ID;
+                return PhoneAuthProvider.PROVIDER_ID;
         }
     }
 

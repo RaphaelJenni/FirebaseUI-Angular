@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
   }
 
   successCallback(data: FirebaseUISignInSuccess) {
-    console.log(data);
+    console.log('successCallback', data);
   }
 
 }
