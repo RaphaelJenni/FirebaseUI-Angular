@@ -1,4 +1,6 @@
 # Changelog
+## 2.6.0
+* Fixed firebase imports - [#29](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/29)
 
 ## 2.5.3
 * Fixed ONE_TAP Login - [pull/30](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/30)
