@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app';
+import { AuthCredential, User } from '@firebase/auth-types';
 
 /*
  * Created by Raphael Jenni
@@ -14,8 +14,8 @@ export class FirebaseUIAuthConfig {
 }
 
 export class FirebaseUISignInSuccess {
-    currentUser: firebase.User;
-    credential: firebase.auth.AuthCredential;
+    currentUser: User;
+    credential: AuthCredential;
     redirectUrl: string;
 }
 
