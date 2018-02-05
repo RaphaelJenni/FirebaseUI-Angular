@@ -36,9 +36,7 @@ gulp.task('copy:source', function () {
  */
 gulp.task('inline-resources', function () {
     return Promise.resolve()
-        .then(() = > inlineResources(tmpFolder)
-)
-    ;
+        .then(() => inlineResources(tmpFolder));
 });
 
 
@@ -47,13 +45,11 @@ gulp.task('inline-resources', function () {
  *    compiled modules to the /build folder.
  */
 gulp.task('ngc', function () {
-    return ngc(['-p', `${tmpFolder}/tsconfig.json`], (error) = > {
-        if(error) {
+    return ngc(['-p', `${tmpFolder}/tsconfig.json`], (error) => {
+        if (error) {
             throw new Error('ngc compilation failed: ' + error);
         }
-    }
-)
-    ;
+    });
 });
 
 /**
