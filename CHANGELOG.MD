@@ -1,4 +1,8 @@
 # Changelog
+##2.6.1
+* Fixed firebase imports [#32](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/32)
+* Updated build script and all dependencies
+
 ## 2.6.0
 * Fixed firebase imports - [#29](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/29)
 
