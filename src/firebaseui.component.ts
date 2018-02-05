@@ -7,11 +7,14 @@ import {
     AuthMethods, AuthProvider, AuthProviderWithCustomConfig, CredentialHelper, FirebaseUIAuthConfig,
     FirebaseUISignInSuccess
 } from './firebaseui.helper';
+import * as firebase from 'firebase/app';
+import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
+import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import TwitterAuthProvider = firebase.auth.TwitterAuthProvider;
+import GithubAuthProvider = firebase.auth.GithubAuthProvider;
+import EmailAuthProvider = firebase.auth.EmailAuthProvider;
+import PhoneAuthProvider = firebase.auth.PhoneAuthProvider;
 
-import {
-    EmailAuthProvider, FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, PhoneAuthProvider,
-    TwitterAuthProvider
-} from '@firebase/auth-types';
 
 
 /*
