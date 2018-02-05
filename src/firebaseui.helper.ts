@@ -1,9 +1,12 @@
-import { AuthCredential, User } from '@firebase/auth-types';
 
 /*
  * Created by Raphael Jenni
  * Copyright (c) 2017 Raphael Jenni
  */
+
+import * as firebase from 'firebase/app';
+import AuthCredential = firebase.auth.AuthCredential;
+import User = firebase.User;
 
 export class FirebaseUIAuthConfig {
     providers: Array<AuthProvider | AuthProviderWithCustomConfig>;
