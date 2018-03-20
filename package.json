@@ -36,7 +36,7 @@
     "codelyzer": "~2.0.0",
     "core-js": "^2.5.3",
     "del": "^2.2.2",
-    "firebase": "^4.9.1",
+    "firebase": "^4.10.1",
     "firebaseui": "^2.5.1",
     "gulp": "^3.9.1",
     "gulp-rollup": "^2.11.0",

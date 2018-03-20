@@ -33,13 +33,20 @@ const facebookCustomConfig: AuthProviderWithCustomConfig = {
   }
 };
 
+const passwordCustomConfig: AuthProviderWithCustomConfig = {
+  provider: AuthProvider.Password,
+  customConfig: {
+    requireDisplayName: false
+  }
+};
+
 const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   providers: [
     AuthProvider.Google,
     facebookCustomConfig,
     AuthProvider.Twitter,
     AuthProvider.Github,
-    AuthProvider.Password,
+    passwordCustomConfig,
     AuthProvider.Phone
   ],
   method: AuthMethods.Popup,
