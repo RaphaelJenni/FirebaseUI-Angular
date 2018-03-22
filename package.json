@@ -5,7 +5,12 @@
     "build": "gulp build",
     "build:watch": "gulp",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
-    "test": "tsc && karma start"
+    "test": "tsc && karma start",
+    "prepeare": "npm run build && cd dist && npm link && cd .. && cd sample && npm run link",
+    "patch": "cd src %% npm version patch",
+    "minor": "cd src %% npm version minor",
+    "major": "cd src %% npm version major",
+    "publish-dist": "npm run build && npm publish dist"
   },
   "repository": {
     "type": "git",

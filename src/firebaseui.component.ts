@@ -92,14 +92,13 @@ export class FirebaseUIComponent implements OnInit, OnDestroy {
 
         let authMethod = 'popup';
         switch (authConfig.method) {
-            case null:
-            case AuthMethods.Popup:
-                break;
             case AuthMethods.Redirect:
                 authMethod = 'redirect';
                 break;
+            case null:
+            case AuthMethods.Popup:
             default:
-                throw new Error(`Unknown auth method. Valid: [AuthMethods.Popup, AuthMethods.Redirect]`);
+                break;
         }
 
         let credentialHelper;
