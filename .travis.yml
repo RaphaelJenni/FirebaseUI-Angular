@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - '10.0'
 before_script:
-  - npm install
+  - npm ci
 script:
   - npm run build-lib
 before_deploy:
