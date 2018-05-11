@@ -9,8 +9,12 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-lib": "ng build firebaseui-angular-library --prod",
+    "prerelease": "cd projects/firebaseui-angular-library && npm version prerelease",
+    "prepatch": "cd projects/firebaseui-angular-library && npm version prepatch",
     "patch": "cd projects/firebaseui-angular-library && npm version patch",
+    "preminor": "cd projects/firebaseui-angular-library && npm version preminor",
     "minor": "cd projects/firebaseui-angular-library && npm version minor",
+    "premajor": "cd projects/firebaseui-angular-library && npm version premajor",
     "major": "cd projects/firebaseui-angular-library && npm version major",
     "publish-dist": "npm run build-lib && npm publish dist/firebaseui-angular-library"
   },
