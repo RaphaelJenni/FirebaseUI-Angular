@@ -1,17 +1,25 @@
-// This file is only used to configure the editor during development.
-// It is NOT used for building the library.
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
-    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
     "moduleResolution": "node",
-    "rootDir": "./src",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "lib": [
-      "es2016",
+      "es2017",
       "dom"
     ],
-    "skipLibCheck": true,
-    // Don't auto-discover @types/node, it results in a ///<reference in the .d.ts output
-    "types": []
+    "paths": {
+      "firebaseui-angular-library": [
+        "dist/firebaseui-angular-library"
+      ]
+    }
   }
 }
