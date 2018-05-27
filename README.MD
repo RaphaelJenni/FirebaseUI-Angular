@@ -96,10 +96,59 @@ export class AppModule {
 
 ```
 
-Import the firebaseui css to `src/styles.css`:
+###Add the firebaseui css to your imports:
+
+**Option 1: CSS Import**
+
+*May be incompatible with older browsers.*
+
+Import the firebaseui css to your `src/styles.css` file:
 ```css
 @import '~firebaseui/dist/firebaseui.css';
 ```
+**Option 2: Angular-CLI**
+
+File: `angular.json`
+
+Path: `"node_modules/firebaseui/dist/firebaseui.css"`
+```json
+{
+  "projects": {
+    [your-project-name]: {
+      ...
+      "architect": {
+        "build": {
+          "options": {
+            ...
+            "styles": [
+              "src/styles.css",
+              "node_modules/firebaseui/dist/firebaseui.css"
+            ]
+          }
+        },
+        ...
+        "test": {
+          "options": {
+            ...
+            "styles": [
+              "src/styles.css",
+              "node_modules/firebaseui/dist/firebaseui.css"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
+**Option 3: HTML Link**
+
+Put this in the `<head>` tag of your `index.html` file:
+```html
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.0.0/firebaseui.css" />
+```
+Make sure the version number matches the version of firebaseui you have installed with npm.
+
 
 Once everything is set up, you can use the component in your Angular application:
 
@@ -233,7 +282,7 @@ Then you can run it via the angular-cli.
 To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
 
 ```bash
-$ npm run build
+$ npm run build-lib
 ```
 
 To lint all `*.ts` files:
@@ -244,7 +293,7 @@ $ npm run lint
 
 ## Troubleshoot
 ### CSS not loaded
-If you have added the css to the .angular-cli.json but nothing happened. Try to restart the server (`Ctrl-C` and `ng serve`)
+If you have added the css to the angular.json but nothing happened. Try to restart the server (`Ctrl-C` and `ng serve`)
 
 ### ERROR in ./~/firebase/app/shared_promise.js
 
