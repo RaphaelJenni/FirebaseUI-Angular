@@ -1,21 +1,25 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {
-  AuthMethods, AuthProvider,
-  AuthProviderWithCustomConfig, CredentialHelper,
+  AuthMethods,
+  AuthProvider,
+  AuthProviderWithCustomConfig,
+  CredentialHelper,
   FirebaseUIAuthConfig,
   FirebaseUISignInSuccess
 } from './firebaseui-angular-library.helper';
-import * as firebase from 'firebase';
+import * as firebaseui from 'firebaseui';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
+// noinspection ES6UnusedImports
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 import TwitterAuthProvider = firebase.auth.TwitterAuthProvider;
 import GithubAuthProvider = firebase.auth.GithubAuthProvider;
 import EmailAuthProvider = firebase.auth.EmailAuthProvider;
 import PhoneAuthProvider = firebase.auth.PhoneAuthProvider;
-import * as firebaseui from 'firebaseui';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
 
 @Component({
   selector: 'firebase-ui',
@@ -112,10 +116,9 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
     const nativeConfiguration: FirebaseUINativeConfiguration = {
       callbacks: {
-        signInSuccess: (currentUser, credential, redirectUrl) => {
+        signInSuccessWithAuthResult: (authResult: firebaseui.auth.AuthResult, redirectUrl) => {
           this.signInSuccessCallback.emit({
-            currentUser,
-            credential,
+            authResult,
             redirectUrl
           });
           return !!authConfig.signInSuccessUrl;

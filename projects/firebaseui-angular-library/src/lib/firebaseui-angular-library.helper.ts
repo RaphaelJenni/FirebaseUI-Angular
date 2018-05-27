@@ -4,9 +4,8 @@
  * Copyright (c) 2017 Raphael Jenni
  */
 
-import * as firebase from 'firebase/app';
-import AuthCredential = firebase.auth.AuthCredential;
-import User = firebase.User;
+import * as firebaseui from 'firebaseui';
+import AuthResult = firebaseui.auth.AuthResult;
 
 export class FirebaseUIAuthConfig {
     providers: Array<AuthProvider | AuthProviderWithCustomConfig>;
@@ -17,8 +16,7 @@ export class FirebaseUIAuthConfig {
 }
 
 export class FirebaseUISignInSuccess {
-    currentUser: User;
-    credential: AuthCredential;
+    authResult: AuthResult;
     redirectUrl: string;
 }
 
