@@ -1,4 +1,7 @@
 # Changelog
+## 3.0.0
+* Added support for firebaseui@3 and firebase@5 
+
 ## 2.6.2
 * Fixed "method" default not working [#40](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/40)
 
