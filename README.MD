@@ -96,27 +96,9 @@ export class AppModule {
 
 ```
 
-Add the firebaseui css to your imports:
-
-**Angular-CLI**
-
-File: `.angular-cli.json`
-
-Path: `"../node_modules/firebaseui/dist/firebaseui.css"`
-```json
-{
-"apps": [
-    {
-      ...
-      "styles": [
-        "src/styles.css",
-        "node_modules/firebaseui/dist/firebaseui.css"
-      ],
-      "scripts": [],
-      ...
-    }
-  ]
-}
+Import the firebaseui css to `src/styles.css`:
+```css
+@import '~firebaseui/dist/firebaseui.css';
 ```
 
 Once everything is set up, you can use the component in your Angular application:
