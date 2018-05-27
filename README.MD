@@ -1,4 +1,7 @@
-# firebaseui-angular
+[![Build Status](https://travis-ci.org/RaphaelJenni/FirebaseUI-Angular.svg?branch=master)](https://travis-ci.org/RaphaelJenni/FirebaseUI-Angular)
+[![npm version](https://badge.fury.io/js/firebaseui-angular.svg)](https://badge.fury.io/js/firebaseui-angular)
+
+# FirebaseUi-Angular
 
 ![Screenshot of Login screen](https://raw.githubusercontent.com/RaphaelJenni/FirebaseUI-Angular/master/assets/LoginScreen.PNG)
 
@@ -106,8 +109,8 @@ Path: `"../node_modules/firebaseui/dist/firebaseui.css"`
     {
       ...
       "styles": [
-        "styles.css",
-        "../node_modules/firebaseui/dist/firebaseui.css"
+        "src/styles.css",
+        "node_modules/firebaseui/dist/firebaseui.css"
       ],
       "scripts": [],
       ...

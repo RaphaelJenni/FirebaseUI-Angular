@@ -1,4 +1,25 @@
 language: node_js
-sudo: false
 node_js:
-- '4.2.1'
+  - node
+before_script:
+  - npm install -g npm
+  - npm ci
+script:
+  - npm run build-lib
+before_deploy:
+  - cd dist/firebaseui-angular-library
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: info@rjenni.ch
+  api_key:
+    secure: bTAG5tzw8ECGfda6RGh+8vIyHvr2EP9PzfezHf3SK1O2hkVaZpclcUGwq5Bt4X2sSERO/Hf9FLk/bIP1ucEphIodBVJaehXBQPM5AAro/2KiXzGtTTJkcV6WZayIAQRMuvzAPiVEiSZT6wBRyOZn8k5FnUM1hSX+HUN3S2dBOqo25yZX+TOIJWv0yVkTbcP0LEl+m72TXp2QaqONaSZ/1XUqrvztI67Ywo+N2fSoc/1f4fQo+pOgDaI9itBu+n5Nz1INKCoHGQuTPxdQ1TgOioKwbmOgw8V7AKJOqgAX7+g5m15MThTRGcCpyizdsFT2MitPLrNZv6RStte+s60fbau4PyyXYDYk7Nuh9uwgjx5iuxW2BEhrdFNlDR/s6raSXAFGV9/KlmtByQ3q0Bd2pgnHZB5NkGLyOt3SJjOn4eGPTv/NMQMUu/cfoRtyjnrntnUSb904s2+PY2oGLgBAphlQtHn9y4arerpc0dEspginf7VmCXNPp68o7mURFXDvBaKWizRJWDMG3qutZTaDS1Vhw1c6xzVH9OHbKf2q1K7DeYZqVi9nlrQ3ujAyXiFfTG8LorJ4t+qMAzvDksdvAuwpbgAd/9wTtjF0G13sOhWI0buQzTrjxicka5K8lm7tb/gWrXyNg3lguH8PjbywXZdClmAFK9OVAe6GO6YceWk=
+  on:
+    branch: master
+    tags: true
+notifications:
+  email:
+    recipients:
+      - $EMAIL
+    on_failure: always
+    on_success: always
