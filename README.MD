@@ -96,7 +96,7 @@ export class AppModule {
 
 ```
 
-###Add the firebaseui css to your imports:
+### Add the firebaseui css to your imports:
 
 **Option 1: CSS Import**
 
