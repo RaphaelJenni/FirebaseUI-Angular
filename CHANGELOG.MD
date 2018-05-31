@@ -1,4 +1,8 @@
 # Changelog
+## 3.0.1
+* Added missing autoUpgradeAnonymousUsers option [#53](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/53)
+* Fixed npm audit
+
 ## 3.0.0
 * Added support for firebaseui@3 and firebase@5 
 
