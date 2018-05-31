@@ -28,7 +28,7 @@ import PhoneAuthProvider = firebase.auth.PhoneAuthProvider;
 })
 export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
-  @Output('signInSuccess') signInSuccessCallback: EventEmitter<FirebaseUISignInSuccess> = new EventEmitter();
+  @Output('signInSuccess') signInSuccessCallback: EventEmitter<FirebaseUISignInSuccess> = new EventEmitter(); // tslint:disable-line
 
   private subscription: Subscription;
 
@@ -114,6 +114,8 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
         break;
     }
 
+    const autoUpgradeAnonymousUsers = authConfig.autoUpgradeAnonymousUsers == null ? false : authConfig.autoUpgradeAnonymousUsers;
+
     const nativeConfiguration: FirebaseUINativeConfiguration = {
       callbacks: {
         signInSuccessWithAuthResult: (authResult: firebaseui.auth.AuthResult, redirectUrl) => {
@@ -127,7 +129,8 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       signInFlow: authMethod,
       signInOptions: authProviders,
       tosUrl: tosURL,
-      credentialHelper: credentialHelper
+      credentialHelper: credentialHelper,
+      autoUpgradeAnonymousUsers: autoUpgradeAnonymousUsers
     };
     if (!!authConfig.signInSuccessUrl) {
       nativeConfiguration.signInSuccessUrl = authConfig.signInSuccessUrl;
@@ -149,5 +152,6 @@ interface FirebaseUINativeConfiguration {
   signInFlow?: string;
   signInOptions?: any;
   signInSuccessUrl?: string;
+  autoUpgradeAnonymousUsers?: boolean;
   tosUrl: string;
 }
