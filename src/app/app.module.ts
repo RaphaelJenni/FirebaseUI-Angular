@@ -50,7 +50,8 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   ],
   method: AuthMethods.Popup,
   tos: '<your-tos-link>',
-  credentialHelper: CredentialHelper.AccountChooser
+  credentialHelper: CredentialHelper.AccountChooser,
+  disableSignInSuccessCallback: true
 };
 
 @NgModule({

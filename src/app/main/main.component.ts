@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {FirebaseUISignInSuccess} from 'firebaseui-angular';
+import {FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
+import {FirebaseUISignInFailure} from '../../../projects/firebaseui-angular-library/src/lib/firebaseui-angular-library.helper';
 
 @Component({
   selector: 'fbui-ng-main',
@@ -21,8 +22,12 @@ export class MainComponent implements OnInit {
     this.afAuth.auth.signOut();
   }
 
-  successCallback(data: FirebaseUISignInSuccess) {
+  successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
     console.log('successCallback', data);
+  }
+
+  errorCallback(data: FirebaseUISignInFailure) {
+    console.warn('errorCallback', data);
   }
 
 }

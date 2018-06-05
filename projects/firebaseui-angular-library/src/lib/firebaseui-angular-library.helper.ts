@@ -5,6 +5,7 @@
 
 import * as firebaseui from 'firebaseui';
 import AuthResult = firebaseui.auth.AuthResult;
+import * as firebase from 'firebase';
 
 export class FirebaseUIAuthConfig {
   providers: Array<AuthProvider | AuthProviderWithCustomConfig>;
@@ -13,12 +14,32 @@ export class FirebaseUIAuthConfig {
   tos?: string;
   credentialHelper?: CredentialHelper;
   autoUpgradeAnonymousUsers?: boolean;
+
+  /**
+   * Will be default in the future
+   */
+  disableSignInSuccessCallback?: boolean;
 }
 
-export class FirebaseUISignInSuccess {
+export class FirebaseUISignInSuccessWithAuthResult {
   authResult: AuthResult;
   redirectUrl: string;
 }
+
+export class FirebaseUISignInFailure {
+  code: string;
+  credential: firebase.auth.AuthCredential;
+}
+
+/**
+ * @deprecated Use {@link FirebaseUISignInSuccessWithAuthResult}
+ */
+export class FirebaseUISignInSuccess {
+  currentUser: firebase.User;
+  credential: firebase.auth.AuthCredential;
+  redirectUrl: string;
+}
+
 
 export enum CredentialHelper {
   AccountChooser, OneTap, None

@@ -1,4 +1,8 @@
 # Changelog
+## 3.0.2
+* Added missing callbacks (error) option [#53](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/53)
+* Added deprecated firebaseui callback and a flag to disable it (this will be default in the future)
+
 ## 3.0.1
 * Added missing autoUpgradeAnonymousUsers option [#53](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/53)
 * Fixed npm audit

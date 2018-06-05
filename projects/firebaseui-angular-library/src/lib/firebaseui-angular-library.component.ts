@@ -6,7 +6,9 @@ import {
   AuthProviderWithCustomConfig,
   CredentialHelper,
   FirebaseUIAuthConfig,
-  FirebaseUISignInSuccess
+  FirebaseUISignInFailure,
+  FirebaseUISignInSuccess,
+  FirebaseUISignInSuccessWithAuthResult
 } from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -28,7 +30,13 @@ import PhoneAuthProvider = firebase.auth.PhoneAuthProvider;
 })
 export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
+  /**
+   * @deprecated Use signInSuccessWithAuthResult
+   */
   @Output('signInSuccess') signInSuccessCallback: EventEmitter<FirebaseUISignInSuccess> = new EventEmitter(); // tslint:disable-line
+
+  @Output('signInSuccessWithAuthResult') signInSuccessWithAuthResultCallback: EventEmitter<FirebaseUISignInSuccessWithAuthResult> = new EventEmitter(); // tslint:disable-line
+  @Output('signInFailure') signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter(); // tslint:disable-line
 
   private subscription: Subscription;
 
@@ -116,16 +124,44 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
     const autoUpgradeAnonymousUsers = authConfig.autoUpgradeAnonymousUsers == null ? false : authConfig.autoUpgradeAnonymousUsers;
 
+    const signInSuccessCallback = (currentUser: firebase.User, credential: firebase.auth.AuthCredential, redirectUrl: string) => {
+      this.signInSuccessCallback.emit({
+        currentUser,
+        credential,
+        redirectUrl
+      });
+      return !!authConfig.signInSuccessUrl;
+    };
+
+    const signInSuccessWithAuthResult = (authResult: firebaseui.auth.AuthResult, redirectUrl) => {
+      this.signInSuccessWithAuthResultCallback.emit({
+        authResult,
+        redirectUrl
+      });
+      return !!authConfig.signInSuccessUrl;
+    };
+
+    const signInFailureCallback = (error: firebaseui.auth.AuthUIError) => {
+      this.signInFailureCallback.emit({
+        code: error.code,
+        credential: error.credential
+      });
+    };
+
+    const callbacks = {
+      signInSuccessWithAuthResult: signInSuccessWithAuthResult,
+      signInFailure: signInFailureCallback,
+      signInSuccess: null
+    };
+
+    if (!authConfig.disableSignInSuccessCallback) {
+      console.warn('[FirebaseUiAngular] signInSuccess callback is deprecated. Please use signInSuccessWithAuthResult callback instead.\n' +
+        'To remove this warning set disableSignInSuccessCallback on the FirebaseUiConfig Object.');
+      callbacks.signInSuccess = signInSuccessCallback;
+    }
+
     const nativeConfiguration: FirebaseUINativeConfiguration = {
-      callbacks: {
-        signInSuccessWithAuthResult: (authResult: firebaseui.auth.AuthResult, redirectUrl) => {
-          this.signInSuccessCallback.emit({
-            authResult,
-            redirectUrl
-          });
-          return !!authConfig.signInSuccessUrl;
-        }
-      },
+      callbacks: callbacks,
       signInFlow: authMethod,
       signInOptions: authProviders,
       tosUrl: tosURL,

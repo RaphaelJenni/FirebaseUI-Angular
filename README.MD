@@ -73,7 +73,8 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   method: AuthMethods.Popup,
   tos: '<your-tos-link>',
   credentialHelper: CredentialHelper.AccountChooser,
-  autoUpgradeAnonymousUsers: true
+  autoUpgradeAnonymousUsers: true,
+  disableSignInSuccessCallback: true
 };
 
 @NgModule({
@@ -240,6 +241,19 @@ It is a hard redirect, so it isn't the angular way. Better do it with authState 
 </ul>
 
 <i>Default: false</i>
+</td>
+</tr>
+<tr>
+<td>disableSignInSuccessCallback</td>
+<td>No</td>
+<td>
+<b>This is for backwards compatibility reasons and will be removed in the future.</b>
+
+<ul>
+<li>Boolean</li>
+</ul>
+
+<i>Default: false</i> but the advised value is <b><i>true</i></b>
 </td>
 </tr>
 </tbody>
