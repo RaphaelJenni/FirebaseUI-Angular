@@ -1,4 +1,8 @@
 # Changelog
+## 3.0.3
+* fix (upgradeAnonymousUser): Enable display with firebaseUI for anonymous user [#59](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/59)
+* doc update [#58](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/58)
+
 ## 3.0.2
 * Added missing callbacks (error) option [#53](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/53)
 * Added deprecated firebaseui callback and a flag to disable it (this will be default in the future)

@@ -247,6 +247,13 @@ It is a hard redirect, so it isn't the angular way. Better do it with authState 
 <td>disableSignInSuccessCallback</td>
 <td>No</td>
 <td>
+FirebaseUi has currently two different callbacks for the same thing. signInSuccess which now is deprecated and signInSuccessWithAuthResult.
+To not break any already running stuff, this functionality was added to be able to disable it entirely.
+
+So, if you set disableSignInSuccessCallback to true, the signInSuccess Callback is skipped and the warning disappears.
+
+--> Migrate from `signInSuccess` to `signInSuccessWithAuthResult`
+
 <b>This is for backwards compatibility reasons and will be removed in the future.</b>
 
 <ul>
