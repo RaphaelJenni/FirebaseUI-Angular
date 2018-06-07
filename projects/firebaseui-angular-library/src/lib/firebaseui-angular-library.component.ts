@@ -12,6 +12,7 @@ import {
 } from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
 import {AngularFireAuth} from 'angularfire2/auth';
+import { User } from 'firebase/app';
 import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
 // noinspection ES6UnusedImports
 import * as firebase from 'firebase/app';
@@ -63,8 +64,8 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.angularFireAuth.authState.subscribe(value => {
-      if (!value) {
+    this.subscription = this.angularFireAuth.authState.subscribe((value: User) => {
+      if ((value && value.isAnonymous) || !value) {
         if (this.firebaseUiConfig.providers.length !== 0) {
           this.firebaseUIPopup();
         } else {
