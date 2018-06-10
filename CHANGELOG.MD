@@ -1,6 +1,8 @@
 # Changelog
-## 3.0.3
+## 3.0.4
 * fix (upgradeAnonymousUser): Enable display with firebaseUI for anonymous user [#59](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/59)
+
+## 3.0.3
 * doc update [#58](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/58)
 
 ## 3.0.2
