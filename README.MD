@@ -334,6 +334,21 @@ If you have added the css to the angular.json but nothing happened. Try to resta
  
 `npm install promise-polyfill --save-exact`
 
+### `http://localhost:4200/images/buffer.svg?embed` 404 (Not Found)
+Put this into your styles.scss file:
+
+```
+@supports (-webkit-appearance:none) {
+  .mdl-progress:not(.mdl-progress--indeterminate):not(.mdl-progress--indeterminate) > .auxbar,
+  .mdl-progress:not(.mdl-progress__indeterminate):not(.mdl-progress__indeterminate) > .auxbar {
+    mask: url(/assets/images/buffer.svg?embed) !important;
+  }
+}
+```
+
+and put a `buffer.svg` file into `assets/images`.
+This will stop this error message.
+
 ## License
 
 MIT © [Raphael Jenni](mailto:info@rjenni.ch)
