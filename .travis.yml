@@ -1,25 +1,25 @@
 language: node_js
 node_js:
-  - node
+- node
 before_script:
-  - npm install -g npm
-  - npm ci
+- npm install -g npm
+- npm ci
 script:
-  - npm run build-lib
+- npm run build-lib
 before_deploy:
-  - cd dist/firebaseui-angular-library
+- cd dist/firebaseui-angular-library
 deploy:
   provider: npm
   skip_cleanup: true
   email: info@rjenni.ch
   api_key:
-    secure: bTAG5tzw8ECGfda6RGh+8vIyHvr2EP9PzfezHf3SK1O2hkVaZpclcUGwq5Bt4X2sSERO/Hf9FLk/bIP1ucEphIodBVJaehXBQPM5AAro/2KiXzGtTTJkcV6WZayIAQRMuvzAPiVEiSZT6wBRyOZn8k5FnUM1hSX+HUN3S2dBOqo25yZX+TOIJWv0yVkTbcP0LEl+m72TXp2QaqONaSZ/1XUqrvztI67Ywo+N2fSoc/1f4fQo+pOgDaI9itBu+n5Nz1INKCoHGQuTPxdQ1TgOioKwbmOgw8V7AKJOqgAX7+g5m15MThTRGcCpyizdsFT2MitPLrNZv6RStte+s60fbau4PyyXYDYk7Nuh9uwgjx5iuxW2BEhrdFNlDR/s6raSXAFGV9/KlmtByQ3q0Bd2pgnHZB5NkGLyOt3SJjOn4eGPTv/NMQMUu/cfoRtyjnrntnUSb904s2+PY2oGLgBAphlQtHn9y4arerpc0dEspginf7VmCXNPp68o7mURFXDvBaKWizRJWDMG3qutZTaDS1Vhw1c6xzVH9OHbKf2q1K7DeYZqVi9nlrQ3ujAyXiFfTG8LorJ4t+qMAzvDksdvAuwpbgAd/9wTtjF0G13sOhWI0buQzTrjxicka5K8lm7tb/gWrXyNg3lguH8PjbywXZdClmAFK9OVAe6GO6YceWk=
+    secure: GNWI7rGIzWSPxrQac41/KP0m1q8AGzSuahMWF6b6ShEu31qB5RmMJMrw2xx8iRX6dSg9pzbuoeLnk7wPHajbVVldrdVtOIzlEgO0LyK3M36i62rJJGTAHAZvVJV6cAKKidPZvzAB6xf6KrGESBhblGtmdLG5G+X0OdtiL4zyuCqwKg8J+GRsWqpzFpVgSBVKNOcEIqwZ6z+L5vGoDwHYTxncKRGupwKzK5kcfPjSkoToeNAl1NWuvKYIty4i7UhbfN40jetxT395u9xFugCNa6eoN4uJyIqBIm563JZxAggFSeNxznONkn3aEr7FzkEGM17zChRacyN8a3grhhQpNfXnFGX5xARGA7w6piFiFCVzKKi61bz55kZDrxK1apOxmEY7IzfRO7FRaxqyahirPiY9bIA52yWp2fN8leaG1m59ZdeSKUowHntFh9fgZuzYVYsmkfq5fnAPm4Cq4rGpweR3JhqAdOiRxPMcQQC9+hv1cu+5SWpo5ITNVYYgHDUUrfWuQJO6TFJxSp61pdfj3Iv62YLiT+S8PjGEH5NAtsJCu0Lvnv89Ow7z4DlzyMbFs2rsSEPK+8kfEfe0TmxGrEAerkM9HfLZOepfvu0+y3a3TSJtqrhz+YGHDXxVW0R1ZpSnPvQq2HsVdr9RsKwJUEMkyflkdd6kBU9a5KYVYa0=
   on:
     branch: master
     tags: true
 notifications:
   email:
     recipients:
-      - $EMAIL
+    - "$EMAIL"
     on_failure: always
     on_success: always
