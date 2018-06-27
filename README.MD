@@ -209,6 +209,15 @@ The link to your terms of services
 </td>
 </tr>
 <tr>
+<td>privacyPolicyUrl</td>
+<td>No</td>
+<td>
+The link to your privacy policy
+
+<i>Default: '''</i> - But it will show a warning if you don't provide one.
+</td>
+</tr>
+<tr>
 <td>signInSuccessUrl</td>
 <td>No</td>
 <td>
@@ -305,12 +314,15 @@ successCallback(signInSuccessData: FirebaseUISignInSuccess) {
 
 ## Sample
 
-There is a sample project in the `sample` folder.
-Just replace the firebase config in `sample\src\environments\environment.ts`.
-
-Then you can run it via the angular-cli.
+There is a sample project in the root folder.
+* Just replace the firebase config in `src\environments\environment.ts`.
+* Run `npm install`
+* Run `npm run build-lib`
+* Run `ng serve`
 
 ## Development
+
+The library sources are in `projects/firebaseui/angular/library`.
 
 To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
 
@@ -323,6 +335,8 @@ To lint all `*.ts` files:
 ```bash
 $ npm run lint
 ```
+
+There are test files, but they are empty at the moment.
 
 ## Troubleshoot
 ### CSS not loaded

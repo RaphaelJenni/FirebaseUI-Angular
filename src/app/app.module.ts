@@ -50,6 +50,7 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   ],
   method: AuthMethods.Popup,
   tos: '<your-tos-link>',
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
   credentialHelper: CredentialHelper.AccountChooser,
   disableSignInSuccessCallback: true
 };

@@ -23,6 +23,7 @@ import TwitterAuthProvider = firebase.auth.TwitterAuthProvider;
 import GithubAuthProvider = firebase.auth.GithubAuthProvider;
 import EmailAuthProvider = firebase.auth.EmailAuthProvider;
 import PhoneAuthProvider = firebase.auth.PhoneAuthProvider;
+import UserCredential = firebase.auth.UserCredential;
 
 @Component({
   selector: 'firebase-ui',
@@ -81,7 +82,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getUIAuthConfig(authConfig: FirebaseUIAuthConfig): Object {
+  private getUIAuthConfig(authConfig: FirebaseUIAuthConfig): firebaseui.auth.Config {
     const authProviders: Array<Object> = [];
     for (let provider of authConfig.providers) {
       if (!!(provider as AuthProviderWithCustomConfig).customConfig) {
@@ -97,6 +98,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     }
 
     const tosURL = authConfig.tos ? authConfig.tos : '';
+    const privacyPolicyUrl = authConfig.privacyPolicyUrl ? authConfig.privacyPolicyUrl : '';
 
     let authMethod = 'popup';
     switch (authConfig.method) {
@@ -134,7 +136,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       return !!authConfig.signInSuccessUrl;
     };
 
-    const signInSuccessWithAuthResult = (authResult: firebaseui.auth.AuthResult, redirectUrl) => {
+    const signInSuccessWithAuthResult = (authResult: UserCredential, redirectUrl) => {
       this.signInSuccessWithAuthResultCallback.emit({
         authResult,
         redirectUrl
@@ -166,6 +168,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       signInFlow: authMethod,
       signInOptions: authProviders,
       tosUrl: tosURL,
+      privacyPolicyUrl: privacyPolicyUrl,
       credentialHelper: credentialHelper,
       autoUpgradeAnonymousUsers: autoUpgradeAnonymousUsers
     };
@@ -191,4 +194,5 @@ interface FirebaseUINativeConfiguration {
   signInSuccessUrl?: string;
   autoUpgradeAnonymousUsers?: boolean;
   tosUrl: string;
+  privacyPolicyUrl: string;
 }

@@ -3,15 +3,15 @@
  * Copyright (c) 2017 Raphael Jenni
  */
 
-import * as firebaseui from 'firebaseui';
-import AuthResult = firebaseui.auth.AuthResult;
 import * as firebase from 'firebase';
+import UserCredential = firebase.auth.UserCredential;
 
 export class FirebaseUIAuthConfig {
   providers: Array<AuthProvider | AuthProviderWithCustomConfig>;
   method?: AuthMethods;
   signInSuccessUrl?: string;
   tos?: string;
+  privacyPolicyUrl?: string;
   credentialHelper?: CredentialHelper;
   autoUpgradeAnonymousUsers?: boolean;
 
@@ -22,7 +22,7 @@ export class FirebaseUIAuthConfig {
 }
 
 export class FirebaseUISignInSuccessWithAuthResult {
-  authResult: AuthResult;
+  authResult: UserCredential;
   redirectUrl: string;
 }
 
