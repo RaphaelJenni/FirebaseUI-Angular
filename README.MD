@@ -309,7 +309,7 @@ Don't forget to unsubscribe at the end.
 ```
 
 ```typescript
-successCallback(signInSuccessData: FirebaseUISignInSuccess) {
+successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult) {
     ...
 }
 
