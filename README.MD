@@ -300,16 +300,22 @@ private firebaseAuthChangeListener(response) {
 ```
 Don't forget to unsubscribe at the end.
 
-### SignInSuccess Callback
+### Sign-in success / failure callbacks
 
 ```html
-<firebase-ui (signInSuccess)="successCallback($event)"></firebase-ui>
+<firebase-ui
+    (signInSuccessWithAuthResult)="successCallback($event)"
+    (signInFailure)="errorCallback($event)"></firebase-ui>
 ```
 
 ```typescript
-successCallback(signInSuccessData: FirebaseUISignInSuccess) {
+successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult) {
     ...
 }
+
+errorCallback(errorData: FirebaseUISignInFailure) {
+    ...
+}  
 ```
 
 ## Sample
