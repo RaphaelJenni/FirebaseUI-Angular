@@ -20,10 +20,10 @@
     "url": "https://github.com/RaphaelJenni/firebaseui-angular/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
-    "firebaseui": "^3.0.0",
-    "angularfire2": "^5.0.0-rc.10",
-    "firebase": "^5.0.4"
+    "@angular/common": "^6.1.2",
+    "@angular/core": "^6.1.2",
+    "firebaseui": "^3.2.0",
+    "angularfire2": "^5.0.0-rc.11",
+    "firebase": "^5.3.1"
   }
 }
