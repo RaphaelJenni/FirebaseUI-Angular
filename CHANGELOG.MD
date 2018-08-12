@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2.0
+* Updated dependencies [#72](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/72) (Thanks to @arjunyel)
+
 ## 3.1.1
 * Fixed support for Angular < 6 [#68](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/68)
 
