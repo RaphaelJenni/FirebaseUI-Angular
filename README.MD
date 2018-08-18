@@ -26,55 +26,46 @@ Add the `FirebaseUIModule` with the config to your imports. Make sure you have i
 
 
 ```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {AppComponent} from './app.component';
+import {FirebaseUIModule} from 'firebaseui-angular';
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../environments/environment';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AppRoutingModule} from './app-routing.module';
+import * as firebase from 'firebase/app';
+import * as firebaseui from 'firebaseui';
 
-import { AppComponent } from './app.component';
-import {
-  AuthMethods,
-  AuthProvider,
-  AuthProviderWithCustomConfig,
-  CredentialHelper,
-  FirebaseUIAuthConfig,
-  FirebaseUIModule
-} from 'firebaseui-angular';
-import { AngularFireModule } from 'angularfire2';
-import { environment } from '../environments/environment';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AppRoutingModule } from './app-routing.module';
-
-const facebookCustomConfig: AuthProviderWithCustomConfig = {
-  provider: AuthProvider.Facebook,
-  customConfig: {
-    scopes: [
-      'public_profile',
-      'email',
-      'user_likes',
-      'user_friends'
-    ],
-    customParameters: {
-      // Forces password re-entry.
-      auth_type: 'reauthenticate'
-    }
-  }
-};
-
-const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
-  providers: [
-    AuthProvider.Google,
-    facebookCustomConfig,
-    AuthProvider.Twitter,
-    AuthProvider.Github,
-    AuthProvider.Password,
-    AuthProvider.Phone
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    {
+      scopes: [
+        'public_profile',
+        'email',
+        'user_likes',
+        'user_friends'
+      ],
+      customParameters: {
+        'auth_type': 'reauthenticate'
+      },
+      provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
+    },
+    firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    {
+      requireDisplayName: false,
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
+    },
+    firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+    firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
   ],
-  method: AuthMethods.Popup,
-  tos: '<your-tos-link>',
-  credentialHelper: CredentialHelper.AccountChooser,
-  autoUpgradeAnonymousUsers: true,
-  disableSignInSuccessCallback: true
+  tosUrl: '<your-tos-link>',
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
+  credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
 };
 
 @NgModule({
@@ -84,7 +75,6 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
@@ -95,6 +85,7 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
 })
 export class AppModule {
 }
+
 
 ```
 
@@ -158,132 +149,10 @@ Once everything is set up, you can use the component in your Angular application
 <firebase-ui></firebase-ui>
 ```
 
-### Config
+### Configuration
+For the configuration of the module see the official firebaseui documentation: [Config](https://github.com/firebase/firebaseui-web#configuration)
 
-FirebaseUIAuthConfig
-
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>providers</td>
-<td>Yes</td>
-<td>
-<ul>
-<li>AuthProvider.Google</li>
-<li>AuthProvider.Facebook</li>
-<li>AuthProvider.Twitter,</li>
-<li>AuthProvider.Github</li>
-<li>AuthProvider.Password</li>
-<li>AuthProvider.Phone</li>
-</ul>
-
-or [AuthProviderWithCustomConfig](#authproviderwithcustomconfig)
-</td>
-</tr>
-<tr>
-<td>method</td>
-<td>No</td>
-<td>
-<ul>
-<li>AuthMethods.Popup</li>
-<li>AuthMethods.Redirect</li>
-</ul>
-
-<i>Default: Popup</i>
-</td>
-</tr>
-<tr>
-<td>tos</td>
-<td>No</td>
-<td>
-The link to your terms of services
-
-<i>Default: '''</i>
-</td>
-</tr>
-<tr>
-<td>privacyPolicyUrl</td>
-<td>No</td>
-<td>
-The link to your privacy policy
-
-<i>Default: '''</i> - But it will show a warning if you don't provide one.
-</td>
-</tr>
-<tr>
-<td>signInSuccessUrl</td>
-<td>No</td>
-<td>
-The url whre the user should be redirected.
-
-It is a hard redirect, so it isn't the angular way. Better do it with authState listener.
-
-<i>Default: No redirect</i>
-</td>
-</tr>
-<tr>
-<td>CredentialHelper</td>
-<td>No</td>
-<td>
-<ul>
-<li>AccountChooser</li>
-<li>OneTap</li>
-<li>None</li>
-</ul>
-
-<i>Default: AccountChooser</i>
-</td>
-</tr>
-<tr>
-<td>autoUpgradeAnonymousUsers</td>
-<td>No</td>
-<td>
-<ul>
-<li>Boolean</li>
-</ul>
-
-<i>Default: false</i>
-</td>
-</tr>
-<tr>
-<td>disableSignInSuccessCallback</td>
-<td>No</td>
-<td>
-FirebaseUi has currently two different callbacks for the same thing. signInSuccess which now is deprecated and signInSuccessWithAuthResult.
-To not break any already running stuff, this functionality was added to be able to disable it entirely.
-
-So, if you set disableSignInSuccessCallback to true, the signInSuccess Callback is skipped and the warning disappears.
-
---> Migrate from `signInSuccess` to `signInSuccessWithAuthResult`
-
-<b>This is for backwards compatibility reasons and will be removed in the future.</b>
-
-<ul>
-<li>Boolean</li>
-</ul>
-
-<i>Default: false</i> but the advised value is <b><i>true</i></b>
-</td>
-</tr>
-</tbody>
-</table>
-
-#### AuthProviderWithCustomConfig
-To see the custom configs, check the firebaseUI doc: [Provider configuration](https://github.com/firebase/firebaseui-web#configure-oauth-providers)
-
-```json
- provider: AuthProvider.Facebook,
- customConfig: {
-    ...
-  }
-```
+_If you use a version prior to 3.3.0 check the [old README](https://github.com/RaphaelJenni/FirebaseUI-Angular/blob/v3.2.0/README.MD)_
 
 ### Listen to auth state changes
 ```typescript
