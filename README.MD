@@ -187,6 +187,14 @@ errorCallback(errorData: FirebaseUISignInFailure) {
 }  
 ```
 
+### Disable autosign
+
+```typescript
+constructor(private firebaseuiAngularLibraryService: FirebaseuiAngularLibraryService) {
+  firebaseuiAngularLibraryService.firebaseUiInstance.disableAutoSignIn();
+}
+```
+
 ## Sample
 
 There is a sample project in the root folder.
