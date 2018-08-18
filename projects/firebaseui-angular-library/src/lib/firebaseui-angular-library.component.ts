@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {
   AuthMethods,
@@ -8,14 +8,15 @@ import {
   FirebaseUIAuthConfig,
   FirebaseUISignInFailure,
   FirebaseUISignInSuccess,
-  FirebaseUISignInSuccessWithAuthResult
+  FirebaseUISignInSuccessWithAuthResult,
+  NativeFirebaseUIAuthConfig,
 } from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
 import {AngularFireAuth} from 'angularfire2/auth';
-import { User } from 'firebase/app';
-import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
 // noinspection ES6UnusedImports
 import * as firebase from 'firebase/app';
+import {User} from 'firebase/app';
+import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
 import 'firebase/auth';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
@@ -27,8 +28,7 @@ import UserCredential = firebase.auth.UserCredential;
 
 @Component({
   selector: 'firebase-ui',
-  template: `
-    <div id="firebaseui-auth-container"></div>`
+  template: '<div id="firebaseui-auth-container"></div>'
 })
 export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
@@ -60,17 +60,29 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   }
 
   constructor(private angularFireAuth: AngularFireAuth,
-              private firebaseUiConfig: FirebaseUIAuthConfig,
+              @Inject('firebaseUIAuthConfig') private firebaseUiConfig: NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig,
               private firebaseUIService: FirebaseuiAngularLibraryService) {
   }
 
   ngOnInit(): void {
     this.subscription = this.angularFireAuth.authState.subscribe((value: User) => {
       if ((value && value.isAnonymous) || !value) {
-        if (this.firebaseUiConfig.providers.length !== 0) {
-          this.firebaseUIPopup();
+        if ((this.firebaseUiConfig as FirebaseUIAuthConfig).providers) {
+          // tslint:disable-next-line
+          console.warn(`"FirebaseUIAuthConfig" isn't supported since version 3.3.0 and will be removed in the future.\nPlease use the native configuration of firebaseui "firebaseui.auth.Config"`);
+          console.warn('You can copy your converted configuration:\n', this.getNewConfigurationString(this.getUIAuthConfig()));
+
+          if ((this.firebaseUiConfig as FirebaseUIAuthConfig).providers.length !== 0) {
+            this.firebaseUIPopup();
+          } else {
+            throw new Error('There must be at least one AuthProvider.');
+          }
         } else {
-          throw new Error('There must be at least one AuthProvider.');
+          if ((this.firebaseUiConfig as NativeFirebaseUIAuthConfig).signInOptions.length !== 0) {
+            this.firebaseUIPopup();
+          } else {
+            throw new Error('There must be at least one AuthProvider.');
+          }
         }
       }
     });
@@ -82,8 +94,17 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getUIAuthConfig(authConfig: FirebaseUIAuthConfig): firebaseui.auth.Config {
-    const authProviders: Array<Object> = [];
+  private getUIAuthConfig(): NativeFirebaseUIAuthConfig {
+    if (!(this.firebaseUiConfig as FirebaseUIAuthConfig).providers) {
+      if (!(this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks) {
+        (this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = this.getCallbacks();
+      }
+      return (this.firebaseUiConfig as NativeFirebaseUIAuthConfig);
+    }
+
+    const authConfig: FirebaseUIAuthConfig = (this.firebaseUiConfig as FirebaseUIAuthConfig);
+
+    const authProviders: Array<any> = [];
     for (let provider of authConfig.providers) {
       if (!!(provider as AuthProviderWithCustomConfig).customConfig) {
         provider = (provider as AuthProviderWithCustomConfig);
@@ -136,24 +157,8 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       return !!authConfig.signInSuccessUrl;
     };
 
-    const signInSuccessWithAuthResult = (authResult: UserCredential, redirectUrl) => {
-      this.signInSuccessWithAuthResultCallback.emit({
-        authResult,
-        redirectUrl
-      });
-      return !!authConfig.signInSuccessUrl;
-    };
-
-    const signInFailureCallback = (error: firebaseui.auth.AuthUIError) => {
-      this.signInFailureCallback.emit({
-        code: error.code,
-        credential: error.credential
-      });
-    };
-
-    const callbacks = {
-      signInSuccessWithAuthResult: signInSuccessWithAuthResult,
-      signInFailure: signInFailureCallback,
+    const callbacks: any = {
+      ...this.getCallbacks(),
       signInSuccess: null
     };
 
@@ -163,7 +168,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       callbacks.signInSuccess = signInSuccessCallback;
     }
 
-    const nativeConfiguration: FirebaseUINativeConfiguration = {
+    const nativeConfiguration: NativeFirebaseUIAuthConfig = {
       callbacks: callbacks,
       signInFlow: authMethod,
       signInOptions: authProviders,
@@ -180,19 +185,62 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
   private firebaseUIPopup() {
     const firebaseUiInstance = this.firebaseUIService.firebaseUiInstance;
-    firebaseUiInstance.start('#firebaseui-auth-container', this.getUIAuthConfig(this.firebaseUiConfig));
+    firebaseUiInstance.start('#firebaseui-auth-container', this.getUIAuthConfig());
   }
-}
 
-interface FirebaseUINativeConfiguration {
-  callbacks?: any;
-  credentialHelper?: any;
-  queryParameterForSignInSuccessUrl?: string;
-  queryParameterForWidgetMode?: string;
-  signInFlow?: string;
-  signInOptions?: any;
-  signInSuccessUrl?: string;
-  autoUpgradeAnonymousUsers?: boolean;
-  tosUrl: string;
-  privacyPolicyUrl: string;
+  private getCallbacks(): any {
+    const signInSuccessWithAuthResult = (authResult: UserCredential, redirectUrl) => {
+      this.signInSuccessWithAuthResultCallback.emit({
+        authResult,
+        redirectUrl
+      });
+      return this.firebaseUiConfig.signInSuccessUrl;
+    };
+
+    const signInFailureCallback = (error: firebaseui.auth.AuthUIError) => {
+      this.signInFailureCallback.emit({
+        code: error.code,
+        credential: error.credential
+      });
+      return Promise.reject();
+    };
+
+    return {
+      signInSuccessWithAuthResult: signInSuccessWithAuthResult,
+      signInFailure: signInFailureCallback,
+    };
+  }
+
+  private getNewConfigurationString(configuration: NativeFirebaseUIAuthConfig): string {
+    delete configuration.callbacks;
+
+    if (!configuration.autoUpgradeAnonymousUsers) {
+      delete configuration.autoUpgradeAnonymousUsers;
+    }
+
+    let stringifiedConfiguration = JSON.stringify(configuration, null, 2);
+    /* tslint:disable */
+    stringifiedConfiguration = stringifiedConfiguration.replace('"credentialHelper": "accountchooser.com"', '"credentialHelper": firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"credentialHelper": "googleyolo"', '"credentialHelper": firebaseui.auth.CredentialHelper.GOOGLE_YOLO');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"credentialHelper": "none"', '"credentialHelper": firebaseui.auth.CredentialHelper.NONE');
+
+    stringifiedConfiguration = stringifiedConfiguration.replace('"provider": "google.com"', '"provider": firebase.auth.GoogleAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"provider": "facebook.com"', '"provider": firebase.auth.FacebookAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"provider": "twitter.com"', '"provider": firebase.auth.TwitterAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"provider": "github.com"', '"provider": firebase.auth.GithubAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"provider": "password"', '"provider": firebase.auth.EmailAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"provider": "phone"', '"provider": firebase.auth.PhoneAuthProvider.PROVIDER_ID');
+
+    stringifiedConfiguration = stringifiedConfiguration.replace('"google.com"', 'firebase.auth.GoogleAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"facebook.com"', 'firebase.auth.FacebookAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"twitter.com"', 'firebase.auth.TwitterAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"github.com"', 'firebase.auth.TwitterAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"password"', 'firebase.auth.EmailAuthProvider.PROVIDER_ID');
+    stringifiedConfiguration = stringifiedConfiguration.replace('"phone"', 'firebase.auth.PhoneAuthProvider.PROVIDER_ID');
+
+    stringifiedConfiguration = stringifiedConfiguration.replace(/"([a-zA-Z0-9]*)": (.*)/g, '$1: $2');
+    stringifiedConfiguration = stringifiedConfiguration.replace(/"/g, '\'');
+    /* tslint:enable */
+    return stringifiedConfiguration;
+  }
 }

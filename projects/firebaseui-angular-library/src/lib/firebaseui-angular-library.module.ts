@@ -1,7 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FirebaseuiAngularLibraryComponent} from './firebaseui-angular-library.component';
 import {CommonModule} from '@angular/common';
-import {FirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
+import {FirebaseUIAuthConfig, NativeFirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
 
 @NgModule({
   imports: [
@@ -11,11 +11,11 @@ import {FirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
   exports: [FirebaseuiAngularLibraryComponent]
 })
 export class FirebaseUIModule {
-  static forRoot(firebaseUiAuthConfig: FirebaseUIAuthConfig): ModuleWithProviders {
+  static forRoot(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig): ModuleWithProviders {
     return {
       ngModule: FirebaseUIModule,
       providers: [
-        {provide: FirebaseUIAuthConfig, useValue: firebaseUiAuthConfig}
+        {provide: 'firebaseUIAuthConfig', useValue: firebaseUiAuthConfig}
       ]
     };
   }

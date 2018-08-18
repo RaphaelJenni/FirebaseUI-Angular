@@ -5,7 +5,11 @@
 
 import * as firebase from 'firebase';
 import UserCredential = firebase.auth.UserCredential;
+import * as firebaseui from 'firebaseui';
 
+/**
+ * @deprecated Please use native configuration of firebaseui (firebaseui.auth.Config)
+ */
 export class FirebaseUIAuthConfig {
   providers: Array<AuthProvider | AuthProviderWithCustomConfig>;
   method?: AuthMethods;
@@ -20,6 +24,9 @@ export class FirebaseUIAuthConfig {
    */
   disableSignInSuccessCallback?: boolean;
 }
+
+export type NativeFirebaseUIAuthConfig = firebaseui.auth.Config;
+
 
 export class FirebaseUISignInSuccessWithAuthResult {
   authResult: UserCredential;
