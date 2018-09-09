@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {FirebaseUISignInSuccess} from 'firebaseui-angular';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'fbui-ng-second-page',

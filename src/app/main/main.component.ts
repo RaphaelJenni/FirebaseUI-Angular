@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
 import {FirebaseUISignInFailure} from '../../../projects/firebaseui-angular-library/src/lib/firebaseui-angular-library.helper';
 

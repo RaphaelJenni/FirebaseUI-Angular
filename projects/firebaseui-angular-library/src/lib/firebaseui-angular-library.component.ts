@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Inject, OnDestroy, OnInit, Output} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {Subscription} from 'rxjs';
 import {
   AuthMethods,
@@ -12,7 +13,6 @@ import {
   NativeFirebaseUIAuthConfig,
 } from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
-import {AngularFireAuth} from 'angularfire2/auth';
 // noinspection ES6UnusedImports
 import * as firebase from 'firebase/app';
 import {User} from 'firebase/app';
