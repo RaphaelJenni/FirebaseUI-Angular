@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.1
+* Fix [#77](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/77)
+* Update dependencies
+
 ## 3.3.0
 * (**IMPORTANT**) Migrate from firebaseui-angular config to firebaseui config
   _After updating run your app and you will get the new configuration printed to the console._
