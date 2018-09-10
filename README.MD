@@ -33,8 +33,8 @@ import {AppComponent} from './app.component';
 import {FirebaseUIModule} from 'firebaseui-angular';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
-import * as firebase from 'firebase/app/dist/index.esm';
-import * as firebaseui from 'firebaseui/dist/firebaseui.js';
+import * as firebase from 'firebase/app';
+import * as firebaseui from 'firebaseui';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 
