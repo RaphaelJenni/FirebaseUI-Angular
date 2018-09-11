@@ -3,9 +3,12 @@
  * Copyright (c) 2017 Raphael Jenni
  */
 
-import * as firebase from 'firebase';
+import * as firebaseOriginal from 'firebase/app';
 import UserCredential = firebase.auth.UserCredential;
-import * as firebaseui from 'firebaseui';
+import * as firebaseuiOriginal from 'firebaseui';
+
+export const firebase = firebaseOriginal;
+export const firebaseui = firebaseuiOriginal;
 
 /**
  * @deprecated Please use native configuration of firebaseui (firebaseui.auth.Config)
@@ -25,7 +28,7 @@ export class FirebaseUIAuthConfig {
   disableSignInSuccessCallback?: boolean;
 }
 
-export type NativeFirebaseUIAuthConfig = firebaseui.auth.Config;
+export type NativeFirebaseUIAuthConfig = firebaseuiOriginal.auth.Config;
 
 
 export class FirebaseUISignInSuccessWithAuthResult {
@@ -35,15 +38,15 @@ export class FirebaseUISignInSuccessWithAuthResult {
 
 export class FirebaseUISignInFailure {
   code: string;
-  credential: firebase.auth.AuthCredential;
+  credential: firebaseOriginal.auth.AuthCredential;
 }
 
 /**
  * @deprecated Use {@link FirebaseUISignInSuccessWithAuthResult}
  */
 export class FirebaseUISignInSuccess {
-  currentUser: firebase.User;
-  credential: firebase.auth.AuthCredential;
+  currentUser: firebaseOriginal.User;
+  credential: firebaseOriginal.auth.AuthCredential;
   redirectUrl: string;
 }
 
