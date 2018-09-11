@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3.2
+* Workaround for --prod build error [#76](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/76)
+
 ## 3.3.1
 * Fix [#77](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/77)
 * Update dependencies
