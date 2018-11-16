@@ -1,4 +1,6 @@
 # Changelog
+## 3.3.3
+* Fix callbacks not getting updated [#81](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/81)
 
 ## 3.3.2
 * Workaround for --prod build error [#76](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/76)

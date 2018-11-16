@@ -1,6 +1,6 @@
 {
   "name": "firebaseui-angular",
-  "version": "3.3.2",
+  "version": "3.3.3-beta.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/RaphaelJenni/firebaseui-angular"

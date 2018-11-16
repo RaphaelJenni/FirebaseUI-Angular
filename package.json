@@ -9,14 +9,15 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-lib": "ng build firebaseui-angular-library --prod && npx copy README.MD dist/firebaseui-angular-library",
-    "prerelease": "cd projects/firebaseui-angular-library && npm version prerelease",
-    "prepatch": "cd projects/firebaseui-angular-library && npm version prepatch",
+    "prerelease": "cd projects/firebaseui-angular-library && npm version prerelease --preid=beta",
+    "_prepatch": "cd projects/firebaseui-angular-library && npm version prepatch  --preid=beta",
     "patch": "cd projects/firebaseui-angular-library && npm version patch",
-    "preminor": "cd projects/firebaseui-angular-library && npm version preminor",
+    "_preminor": "cd projects/firebaseui-angular-library && npm version preminor  --preid=beta",
     "minor": "cd projects/firebaseui-angular-library && npm version minor",
-    "premajor": "cd projects/firebaseui-angular-library && npm version premajor",
+    "_premajor": "cd projects/firebaseui-angular-library && npm version premajor  --preid=beta",
     "major": "cd projects/firebaseui-angular-library && npm version major",
-    "publish-dist": "npm run build-lib && npm publish dist/firebaseui-angular-library"
+    "publish-dist": "npm run build-lib && npm publish dist/firebaseui-angular-library",
+    "publish-dist-beta": "npm run build-lib && npm publish dist/firebaseui-angular-library --tag beta"
   },
   "private": true,
   "dependencies": {
