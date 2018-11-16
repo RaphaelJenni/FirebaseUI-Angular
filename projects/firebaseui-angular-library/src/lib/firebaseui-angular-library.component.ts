@@ -31,6 +31,7 @@ import UserCredential = firebase.auth.UserCredential;
   template: '<div id="firebaseui-auth-container"></div>'
 })
 export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
+  private static readonly COMPUTED_CALLBACKS = 'COMPUTED_CALLBACKS';
 
   /**
    * @deprecated Use signInSuccessWithAuthResult
@@ -97,6 +98,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   private getUIAuthConfig(): NativeFirebaseUIAuthConfig {
     if (!(this.firebaseUiConfig as FirebaseUIAuthConfig).providers) {
       if (!(this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks) {
+        this.firebaseUiConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS] = true;
         (this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = this.getCallbacks();
       }
       return (this.firebaseUiConfig as NativeFirebaseUIAuthConfig);
@@ -185,7 +187,22 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
   private firebaseUIPopup() {
     const firebaseUiInstance = this.firebaseUIService.firebaseUiInstance;
-    firebaseUiInstance.start('#firebaseui-auth-container', this.getUIAuthConfig());
+    const uiAuthConfig = this.getUIAuthConfig();
+
+    // Check if callbacks got computed to reset them again after providing the to firebaseui.
+    // Necessary for allowing updating the firebaseui config during runtime.
+    let resetCallbacks = false;
+    if (uiAuthConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS]) {
+      resetCallbacks = true;
+      delete uiAuthConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS];
+    }
+
+    // show the firebaseui
+    firebaseUiInstance.start('#firebaseui-auth-container', uiAuthConfig);
+
+    if (resetCallbacks) {
+      (this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = null;
+    }
   }
 
   private getCallbacks(): any {
