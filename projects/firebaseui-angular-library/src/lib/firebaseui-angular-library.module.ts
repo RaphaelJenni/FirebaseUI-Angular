@@ -15,7 +15,17 @@ export class FirebaseUIModule {
     return {
       ngModule: FirebaseUIModule,
       providers: [
-        {provide: 'firebaseUIAuthConfig', useValue: firebaseUiAuthConfig}
+        {provide: 'firebaseUIAuthConfig', useValue: firebaseUiAuthConfig},
+        {provide: 'firebaseUIAuthConfigFeature', useValue: {}}
+      ]
+    };
+  }
+
+  static forFeature(firebaseUIAuthConfig: NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig | any): ModuleWithProviders {
+    return {
+      ngModule: FirebaseUIModule,
+      providers: [
+        {provide: 'firebaseUIAuthConfigFeature', useValue: firebaseUIAuthConfig}
       ]
     };
   }

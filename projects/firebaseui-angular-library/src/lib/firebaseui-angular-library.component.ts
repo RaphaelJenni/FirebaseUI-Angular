@@ -61,8 +61,16 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   }
 
   constructor(private angularFireAuth: AngularFireAuth,
-              @Inject('firebaseUIAuthConfig') private firebaseUiConfig: NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig,
+              @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig,
+              @Inject('firebaseUIAuthConfigFeature') private _firebaseUiConfig_Feature: NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig,
               private firebaseUIService: FirebaseuiAngularLibraryService) {
+  }
+
+  get firebaseUiConfig(): NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig {
+    return {
+      ...this._firebaseUiConfig,
+      ...this._firebaseUiConfig_Feature
+    } as NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig;
   }
 
   ngOnInit(): void {

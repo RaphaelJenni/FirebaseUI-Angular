@@ -11,7 +11,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    FirebaseUIModule,
+    FirebaseUIModule.forFeature({tosUrl: 'MAIN_MODULE'}),
     RouterModule.forChild(routes)
   ],
   declarations: [MainComponent]

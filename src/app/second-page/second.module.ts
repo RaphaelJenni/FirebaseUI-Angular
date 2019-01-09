@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SecondPageComponent} from './second-page.component';
-import {FirebaseUIModule} from 'firebaseui-angular';
 import {RouterModule, Routes} from '@angular/router';
+import {firebase, FirebaseUIModule} from 'firebaseui-angular';
 
 const routes: Routes = [
   {path: '', component: SecondPageComponent},
@@ -12,7 +12,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    FirebaseUIModule,
+    FirebaseUIModule.forFeature({
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID]
+    }),
     RouterModule.forChild(routes)
   ],
   declarations: [SecondPageComponent]

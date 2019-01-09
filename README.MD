@@ -162,6 +162,27 @@ For the configuration of the module see the official firebaseui documentation: [
 
 _If you use a version prior to 3.3.0 check the [old README](https://github.com/RaphaelJenni/FirebaseUI-Angular/blob/v3.2.0/README.MD)_
 
+
+#### forRoot/forFeature
+To configure the plugin the first time (`main.module.ts`) the `forRoot()` method is used.
+It builds the basis for all further uses of the plugin.
+But you have the possibility to overwrite the entire or just parts of the configuration in any (sub-)module.
+
+##### forRoot
+To overwrite the entire configuration use:
+```
+FirebaseUIModule.forRoot(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig)
+```
+
+
+##### forFeature
+To overwrite just parts of the configuration use:
+```
+FirebaseUIModule.forFeature(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig)
+```
+This will use the in `forRoot` provided configuration and overwrite just the newly provided values.
+
+
 ### Listen to auth state changes
 ```typescript
 this.angularFireAuth.authState.subscribe(this.firebaseAuthChangeListener);
