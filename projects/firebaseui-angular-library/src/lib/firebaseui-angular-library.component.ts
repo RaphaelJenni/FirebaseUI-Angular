@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, NgZone, OnDestroy, OnInit, Output} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Subscription} from 'rxjs';
 import {
@@ -61,6 +61,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   }
 
   constructor(private angularFireAuth: AngularFireAuth,
+              private ngZone: NgZone,
               @Inject('firebaseUIAuthConfig') private firebaseUiConfig: NativeFirebaseUIAuthConfig | FirebaseUIAuthConfig,
               private firebaseUIService: FirebaseuiAngularLibraryService) {
   }
@@ -151,10 +152,12 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     const autoUpgradeAnonymousUsers = authConfig.autoUpgradeAnonymousUsers == null ? false : authConfig.autoUpgradeAnonymousUsers;
 
     const signInSuccessCallback = (currentUser: firebase.User, credential: firebase.auth.AuthCredential, redirectUrl: string) => {
-      this.signInSuccessCallback.emit({
-        currentUser,
-        credential,
-        redirectUrl
+      this.ngZone.run(() => {
+        this.signInSuccessCallback.emit({
+          currentUser,
+          credential,
+          redirectUrl
+        });
       });
       return !!authConfig.signInSuccessUrl;
     };
@@ -207,17 +210,21 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
   private getCallbacks(): any {
     const signInSuccessWithAuthResult = (authResult: UserCredential, redirectUrl) => {
-      this.signInSuccessWithAuthResultCallback.emit({
-        authResult,
-        redirectUrl
+      this.ngZone.run(() => {
+        this.signInSuccessWithAuthResultCallback.emit({
+          authResult,
+          redirectUrl
+        });
       });
       return this.firebaseUiConfig.signInSuccessUrl;
     };
 
     const signInFailureCallback = (error: firebaseui.auth.AuthUIError) => {
-      this.signInFailureCallback.emit({
-        code: error.code,
-        credential: error.credential
+      this.ngZone.run(() => {
+        this.signInFailureCallback.emit({
+          code: error.code,
+          credential: error.credential
+        });
       });
       return Promise.reject();
     };

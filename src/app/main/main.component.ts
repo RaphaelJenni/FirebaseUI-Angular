@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
 import {FirebaseUISignInFailure} from '../../../projects/firebaseui-angular-library/src/lib/firebaseui-angular-library.helper';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'fbui-ng-main',
@@ -11,7 +12,7 @@ import {FirebaseUISignInFailure} from '../../../projects/firebaseui-angular-libr
 export class MainComponent implements OnInit {
 
 
-  constructor(private afAuth: AngularFireAuth) {
+  constructor(private afAuth: AngularFireAuth, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -24,6 +25,7 @@ export class MainComponent implements OnInit {
 
   successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
     console.log('successCallback', data);
+    this.router.navigate(['page']);
   }
 
   errorCallback(data: FirebaseUISignInFailure) {
