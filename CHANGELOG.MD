@@ -1,4 +1,11 @@
 # Changelog
+## 3.4.1
+* Fix callbacks running outside the angular zone [#85](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/85)
+* Fix bug introduced with 3.4.0
+
+## 3.4.0
+* Add forFeature module initializer [#57](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/57)
+
 ## 3.3.3
 * Fix callbacks not getting updated [#81](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/81)
 
