@@ -107,8 +107,8 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   private getUIAuthConfig(): NativeFirebaseUIAuthConfig {
     if (!(this.firebaseUiConfig as FirebaseUIAuthConfig).providers) {
       if (!(this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks) {
-        this.firebaseUiConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS] = true;
-        (this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = this.getCallbacks();
+        this._firebaseUiConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS] = true;
+        (this._firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = this.getCallbacks();
       }
       return (this.firebaseUiConfig as NativeFirebaseUIAuthConfig);
     }
@@ -212,7 +212,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     firebaseUiInstance.start('#firebaseui-auth-container', uiAuthConfig);
 
     if (resetCallbacks) {
-      (this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = null;
+      (this._firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = null;
     }
   }
 
