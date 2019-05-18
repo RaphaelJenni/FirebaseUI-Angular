@@ -251,6 +251,9 @@ $ npm run lint
 There are test files, but they are empty at the moment.
 
 ## Troubleshoot
+### UI not rendered
+The UI only gets rendered if the user isn't signed in. So if the UI isn't shown, sign out the user via angular-fire.
+
 ### Prod build error
 ```
 ERROR in ./src/app/app.module.ngfactory.js
