@@ -1,4 +1,7 @@
 # Changelog
+## 3.4.2
+* Fix service provided always in root instead of AngularFireAuthModule [#92](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/92)
+
 ## 3.4.1
 * Fix callbacks running outside the angular zone [#85](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/85)
 * Fix bug introduced with 3.4.0

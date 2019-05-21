@@ -2,12 +2,14 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FirebaseuiAngularLibraryComponent} from './firebaseui-angular-library.component';
 import {CommonModule} from '@angular/common';
 import {FirebaseUIAuthConfig, NativeFirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
+import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [FirebaseuiAngularLibraryComponent],
+  providers: [FirebaseuiAngularLibraryService],
   exports: [FirebaseuiAngularLibraryComponent]
 })
 export class FirebaseUIModule {
