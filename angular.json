@@ -152,11 +152,6 @@
           "options": {
             "tsConfig": "projects/firebaseui-angular-library/tsconfig.lib.json",
             "project": "projects/firebaseui-angular-library/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "projects/firebaseui-angular-library/ng-package.prod.json"
-            }
           }
         },
         "test": {

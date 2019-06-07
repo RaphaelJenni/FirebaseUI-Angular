@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-lib": "ng build firebaseui-angular-library --prod && npx copy README.MD dist/firebaseui-angular-library",
+    "build-lib": "ng build firebaseui-angular-library && npx copy README.MD dist/firebaseui-angular-library",
     "prerelease": "cd projects/firebaseui-angular-library && npm version prerelease --preid=beta",
     "_prepatch": "cd projects/firebaseui-angular-library && npm version prepatch  --preid=beta",
     "patch": "cd projects/firebaseui-angular-library && npm version patch",
