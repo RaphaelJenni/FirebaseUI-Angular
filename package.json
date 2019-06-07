@@ -33,14 +33,14 @@
     "@angular/router": "7.0.2",
     "core-js": "^2.5.7",
     "firebase": "^5.5.7",
-    "firebaseui": "^3.4.1",
+    "firebaseui": "^4.0.0",
     "rxjs": "^6.3.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",
     "@angular-devkit/build-ng-packagr": "~0.10.0",
-    "@angular/cli": "7.0.4",
+    "@angular/cli": "8.0.2",
     "@angular/compiler-cli": "7.0.2",
     "@angular/language-service": "7.0.2",
     "@types/jasmine": "^2.8.8",
