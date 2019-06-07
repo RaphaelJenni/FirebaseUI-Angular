@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FirebaseUISignInSuccess} from 'firebaseui-angular';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
 
 @Component({
   selector: 'fbui-ng-second-page',
@@ -20,7 +20,7 @@ export class SecondPageComponent implements OnInit {
     this.afAuth.auth.signOut();
   }
 
-  successCallback(data: FirebaseUISignInSuccess) {
+  successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
     console.log(data);
   }
 }
