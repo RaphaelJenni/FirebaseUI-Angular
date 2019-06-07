@@ -19,6 +19,9 @@
     "paths": {
       "firebaseui-angular": [
         "dist/firebaseui-angular-library"
+      ],
+      "firebaseui-angular/*": [
+        "dist/firebaseui-angular-library/*"
       ]
     }
   }
