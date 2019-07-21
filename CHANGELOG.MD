@@ -1,4 +1,9 @@
 # Changelog
+## 4.0.0
+* Dump old configurations
+* Update sample project to Angular 8
+* Update peer dependencies configuration
+
 ## 3.4.2
 * Fix service provided always in root instead of AngularFireAuthModule [#92](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/92)
 
