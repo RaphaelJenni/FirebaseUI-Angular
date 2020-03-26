@@ -13,7 +13,7 @@ import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.serv
   exports: [FirebaseuiAngularLibraryComponent]
 })
 export class FirebaseUIModule {
-  static forRoot(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig): ModuleWithProviders {
+  static forRoot(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig): ModuleWithProviders<FirebaseUIModule> {
     return {
       ngModule: FirebaseUIModule,
       providers: [
@@ -23,7 +23,7 @@ export class FirebaseUIModule {
     };
   }
 
-  static forFeature(firebaseUIAuthConfig: NativeFirebaseUIAuthConfig | any): ModuleWithProviders {
+  static forFeature(firebaseUIAuthConfig: NativeFirebaseUIAuthConfig | any): ModuleWithProviders<FirebaseUIModule> {
     return {
       ngModule: FirebaseUIModule,
       providers: [
