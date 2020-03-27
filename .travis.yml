@@ -1,16 +1,21 @@
 language: node_js
 node_js:
-- node
-before_script:
-- npm install -g npm
-- npm ci
+- "node"
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 script:
 - npm run build-lib
 before_deploy:
 - cd dist/firebaseui-angular-library
 deploy:
   provider: npm
-  skip_cleanup: true
+  cleanup: true
   email: info@rjenni.ch
   api_key:
     secure: Jaq6zWTWjuu+JB6SpBAdV6wI1327JqOnpDJhJeqYZgPRQH+IKPvzakG3U6ouTHi7iHvQfMCTVX6lz6zb5aDc3zX82ChqTcZOAAguaO/MlxBZipiLpSsasOU4sCaQtRIg7fxNV6ZApRPi6O/2W67nvV/ZpeI6xmsDRw8VmtHwGfrLaJ34Pkj+Z/uuruBv6XmxOSPUmqexCRaqdliqoyp9m8LwcCVeXiYr/2c1lXyBryI94xUtj4WbmZ8h+5kPhR72r/OWBv3CNdE2V2wa1bNw10uWI0BYvPNCdWDf4yGNeHAMMr3QRL5rPF9jNogA0bUZYqPm+WWUFArtPu13uiGhn1pkZXU8TVwxWxyz98YjJsC9CIW2XA7WkzMfB16dNSvKl3RFiG9rTzEiC/IRTzq1eF4QaBtgQ6v0vtl7nH1uWCf/uNa99jBArGfjsRQA6TqNa0O0rciGgsFRky/VuACyE76CbMJS1E/XTEjqMerV41fM8IJULuY6IV93mG8ak05oup7EbgIhMt3FsR1ArIdTjzXBbkDfqfTU/oYhvbZu3J/2Uoi/hsMcLinwpbUH16s3O+XhPIQimOfMkeG11WANwQZGtbUg6/aibeVh2coR01mrmRR9ybDJh/PzBqABYJNHuw8Hi1blEWtEUtjTSAPgyETdt41XfhRKVP9RsOcI2SU=
