@@ -8,21 +8,22 @@ addons:
     packages:
       - g++-4.8
 script:
-- npm run build-lib
+  - npm run build-lib
 before_deploy:
-- cd dist/firebaseui-angular-library
+  - cd dist/firebaseui-angular-library
 deploy:
   provider: npm
-  cleanup: true
+  skip_cleanup: true
   email: info@rjenni.ch
   api_key:
-    secure: Jaq6zWTWjuu+JB6SpBAdV6wI1327JqOnpDJhJeqYZgPRQH+IKPvzakG3U6ouTHi7iHvQfMCTVX6lz6zb5aDc3zX82ChqTcZOAAguaO/MlxBZipiLpSsasOU4sCaQtRIg7fxNV6ZApRPi6O/2W67nvV/ZpeI6xmsDRw8VmtHwGfrLaJ34Pkj+Z/uuruBv6XmxOSPUmqexCRaqdliqoyp9m8LwcCVeXiYr/2c1lXyBryI94xUtj4WbmZ8h+5kPhR72r/OWBv3CNdE2V2wa1bNw10uWI0BYvPNCdWDf4yGNeHAMMr3QRL5rPF9jNogA0bUZYqPm+WWUFArtPu13uiGhn1pkZXU8TVwxWxyz98YjJsC9CIW2XA7WkzMfB16dNSvKl3RFiG9rTzEiC/IRTzq1eF4QaBtgQ6v0vtl7nH1uWCf/uNa99jBArGfjsRQA6TqNa0O0rciGgsFRky/VuACyE76CbMJS1E/XTEjqMerV41fM8IJULuY6IV93mG8ak05oup7EbgIhMt3FsR1ArIdTjzXBbkDfqfTU/oYhvbZu3J/2Uoi/hsMcLinwpbUH16s3O+XhPIQimOfMkeG11WANwQZGtbUg6/aibeVh2coR01mrmRR9ybDJh/PzBqABYJNHuw8Hi1blEWtEUtjTSAPgyETdt41XfhRKVP9RsOcI2SU=
+    secure: DTHTJ0WLEgJQ7MwoI27BI+S9mQmScLsWMb+iOr0Hkir5GDJxF6lLHU2WVrH3n/a9BgcbH3E+6Gpm55O1M6R/Cda2pXoCWgpC5nD9q2A40B1OBvFcWWv42TRYHy8nDpNK1KllJjWzF7Z10k8rgINWLqogtQnvtt4RGTL6XdD8D3fTNw1KCsY3QRI2RLgzxJ7bysd6CW2grc00lgEjI7T0CJj/4sPOmNUpXoOd0Ecqi8ImDa9iZJOatc9OnBrriYCoq3OaZYjC2Yo14uKKZ+G8132CsXlPoiMZrNYDnC7bh43do/NL4fhJf9uAHT9iUELfxMhlirZ0HQGspyriXXDvGej4Hi9l5axwA2WxeJusw0Oh3iMELAkCXIlhJ7CfYFJ1drA28I6hUzmBm9+nADzfTpyNMd12d/8y6GSz+WDJGVSdbLzL+JsaHogOhUiuNObaUrBs1AnJQtC+guQ5ACDK68VOnX59obEsBakrGwQQTR8XuqEWytvC/l9gR46x6mWk+eRkPJF5V124Q8ZSFfE1u2M/fPaFffGgqKZ8upuAdAVNUey+ygfU440/8fXlgBNEFl9ZhYI9CqNULRij2hEX4GXvmQgvMIRvLOXaoS2cjhfnpd0y4pb6TJyBb8TFJnuL9AUVSBPaEzJpN3wkmUINPlWMQ4kiJAuxJcXXviCnZ2g=
   on:
     branch: master
     tags: true
+    repo: RaphaelJenni/FirebaseUI-Angular
 notifications:
   email:
     recipients:
-    - "$EMAIL"
+      - "$EMAIL"
     on_failure: always
     on_success: always
