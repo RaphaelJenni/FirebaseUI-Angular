@@ -1,4 +1,8 @@
 # Changelog
+## 4.1.0
+* Update to Angular 9 [#113](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/92) Thanks to @l0ll098 for the PR
+
+
 ## 4.0.0
 * Dump old configurations
 * Update sample project to Angular 8
@@ -56,7 +60,7 @@
 * Fixed npm audit
 
 ## 3.0.0
-* Added support for firebaseui@3 and firebase@5 
+* Added support for firebaseui@3 and firebase@5
 
 ## 2.6.2
 * Fixed "method" default not working [#40](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/40)
