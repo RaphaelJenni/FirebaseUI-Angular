@@ -1,19 +1,20 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FirebaseuiAngularLibraryComponent} from './firebaseui-angular-library.component';
 import {CommonModule} from '@angular/common';
-import {NativeFirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
+import {NativeFirebaseUIAuthConfig, CustomFirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
 import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
+import { DynamicLoaderService } from './dynamic-loader.service';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [FirebaseuiAngularLibraryComponent],
-  providers: [FirebaseuiAngularLibraryService],
+  providers: [FirebaseuiAngularLibraryService, DynamicLoaderService],
   exports: [FirebaseuiAngularLibraryComponent]
 })
 export class FirebaseUIModule {
-  static forRoot(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig): ModuleWithProviders<FirebaseUIModule> {
+  static forRoot(firebaseUiAuthConfig: CustomFirebaseUIAuthConfig): ModuleWithProviders<FirebaseUIModule> {
     return {
       ngModule: FirebaseUIModule,
       providers: [
@@ -23,7 +24,7 @@ export class FirebaseUIModule {
     };
   }
 
-  static forFeature(firebaseUIAuthConfig: NativeFirebaseUIAuthConfig | any): ModuleWithProviders<FirebaseUIModule> {
+  static forFeature(firebaseUIAuthConfig: CustomFirebaseUIAuthConfig | any): ModuleWithProviders<FirebaseUIModule> {
     return {
       ngModule: FirebaseUIModule,
       providers: [

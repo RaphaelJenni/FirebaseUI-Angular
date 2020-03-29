@@ -5,6 +5,7 @@ import {
   FirebaseUISignInFailure,
   FirebaseUISignInSuccessWithAuthResult,
   NativeFirebaseUIAuthConfig,
+  CustomFirebaseUIAuthConfig,
 } from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
 import {User} from 'firebase/app';
@@ -25,17 +26,17 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(private angularFireAuth: AngularFireAuth,
-              @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: NativeFirebaseUIAuthConfig,
-              @Inject('firebaseUIAuthConfigFeature') private _firebaseUiConfig_Feature: NativeFirebaseUIAuthConfig,
+              @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: CustomFirebaseUIAuthConfig,
+              @Inject('firebaseUIAuthConfigFeature') private _firebaseUiConfig_Feature: CustomFirebaseUIAuthConfig,
               private ngZone: NgZone,
               private firebaseUIService: FirebaseuiAngularLibraryService) {
   }
 
-  get firebaseUiConfig(): NativeFirebaseUIAuthConfig {
+  get firebaseUiConfig(): CustomFirebaseUIAuthConfig {
     return {
       ...this._firebaseUiConfig,
       ...this._firebaseUiConfig_Feature
-    } as NativeFirebaseUIAuthConfig;
+    } as CustomFirebaseUIAuthConfig;
   }
 
   ngOnInit(): void {
@@ -56,12 +57,12 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getUIAuthConfig(): NativeFirebaseUIAuthConfig {
-    if (!(this.firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks) {
+  private getUIAuthConfig(): CustomFirebaseUIAuthConfig {
+    if (!(this.firebaseUiConfig as CustomFirebaseUIAuthConfig).callbacks) {
       this._firebaseUiConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS] = true;
-      (this._firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = this.getCallbacks();
+      (this._firebaseUiConfig as CustomFirebaseUIAuthConfig).callbacks = this.getCallbacks();
     }
-    return (this.firebaseUiConfig as NativeFirebaseUIAuthConfig);
+    return (this.firebaseUiConfig as CustomFirebaseUIAuthConfig);
   }
 
   private firebaseUIPopup() {
@@ -76,11 +77,15 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       delete uiAuthConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS];
     }
 
+    if (uiAuthConfig.language) {
+      delete uiAuthConfig["language"];
+    }
+
     // show the firebaseui
     firebaseUiInstance.start('#firebaseui-auth-container', uiAuthConfig);
 
     if (resetCallbacks) {
-      (this._firebaseUiConfig as NativeFirebaseUIAuthConfig).callbacks = null;
+      (this._firebaseUiConfig as CustomFirebaseUIAuthConfig).callbacks = null;
     }
   }
 
