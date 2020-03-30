@@ -68,6 +68,8 @@ export class FirebaseuiAngularLibraryService {
     }
 
     let instance: auth.AuthUI;
+    const previousLanguageCode = FirebaseuiAngularLibraryService.currentLanguageCode;
+    const previousLanguage = previousLanguageCode? this.getLanguageByCode(previousLanguageCode) :null;
 
     FirebaseuiAngularLibraryService.currentLanguageCode = languageCode ? languageCode.toLowerCase() : "en";
 
@@ -110,6 +112,16 @@ export class FirebaseuiAngularLibraryService {
           name: "firebaseui-css-rtl",
           type: "css",
           src: "https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth-rtl.css"
+        });
+      }
+
+      // If we had previsouly loaded another language that was a RtL one and current one is not, 
+      //    we need to load the LtR css
+      if (previousLanguage && previousLanguage.isRtL && !language.isRtL) {
+        toLoad.push({
+          name: "firebaseui-css",
+          type: "css",
+          src: "https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css"
         });
       }
 
@@ -161,7 +173,10 @@ export class FirebaseuiAngularLibraryService {
    * It could return null if the current language can't be parsed.
    */
   getCurrentLanguage() {
-    const code = FirebaseuiAngularLibraryService.currentLanguageCode;
+    return this.getLanguageByCode(FirebaseuiAngularLibraryService.currentLanguageCode);
+  }
+
+  private getLanguageByCode(code: string){
     const matching = FirebaseUILanguages.filter((lang) => lang.code.toLowerCase() === code.toLowerCase());
 
     if (matching.length === 1) {
