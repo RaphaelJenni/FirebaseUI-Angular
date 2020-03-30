@@ -1,19 +1,16 @@
-import {Component, EventEmitter, Inject, NgZone, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, EventEmitter, Output} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Subscription} from 'rxjs';
-import {FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult, CustomFirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
-import * as firebaseui from 'firebaseui';
+import {CustomFirebaseUIAuthConfig, FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure} from './firebaseui-angular-library.helper';
 import {User} from 'firebase/app';
-import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
+import {FirebaseuiAngularLibraryService, DEFAULT_FIREBASE_UI_AUTH_CONTAINER} from './firebaseui-angular-library.service';
 import 'firebase/auth';
-import UserCredential = firebase.auth.UserCredential;
 
 @Component({
   selector: 'firebase-ui',
   template: '<div id="firebaseui-auth-container"></div>'
 })
 export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
-  private static readonly COMPUTED_CALLBACKS = 'COMPUTED_CALLBACKS';
 
   @Output('signInSuccessWithAuthResult') signInSuccessWithAuthResultCallback: EventEmitter<FirebaseUISignInSuccessWithAuthResult> = new EventEmitter(); // tslint:disable-line
   @Output('signInFailure') signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter(); // tslint:disable-line
@@ -23,8 +20,10 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   constructor(private angularFireAuth: AngularFireAuth,
               @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: CustomFirebaseUIAuthConfig,
               @Inject('firebaseUIAuthConfigFeature') private _firebaseUiConfig_Feature: CustomFirebaseUIAuthConfig,
-              private ngZone: NgZone,
               private firebaseUIService: FirebaseuiAngularLibraryService) {
+
+    FirebaseuiAngularLibraryService.signInSuccessWithAuthResultCallback = this.signInSuccessWithAuthResultCallback;
+    FirebaseuiAngularLibraryService.signInFailureCallback = this.signInFailureCallback;
   }
 
   get firebaseUiConfig(): CustomFirebaseUIAuthConfig {
@@ -52,67 +51,8 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getUIAuthConfig(): CustomFirebaseUIAuthConfig {
-    if (!(this.firebaseUiConfig as CustomFirebaseUIAuthConfig).callbacks) {
-      this._firebaseUiConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS] = true;
-      (this._firebaseUiConfig as CustomFirebaseUIAuthConfig).callbacks = this.getCallbacks();
-    }
-    return (this.firebaseUiConfig as CustomFirebaseUIAuthConfig);
+  private async firebaseUIPopup() {
+    await this.firebaseUIService.start(DEFAULT_FIREBASE_UI_AUTH_CONTAINER);
   }
-
-  private firebaseUIPopup() {
-    const uiAuthConfig = this.getUIAuthConfig();
-
-    // Check if callbacks got computed to reset them again after providing the to firebaseui.
-    // Necessary for allowing updating the firebaseui config during runtime.
-    let resetCallbacks = false;
-    if (uiAuthConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS]) {
-      resetCallbacks = true;
-      delete uiAuthConfig[FirebaseuiAngularLibraryComponent.COMPUTED_CALLBACKS];
-    }
-
-    if (uiAuthConfig.language) {
-      delete uiAuthConfig["language"];
-    }
-
-    this.firebaseUIService
-      .getFirebaseUiInstance()
-      .then((instance) => {
-        instance.start('#firebaseui-auth-container', uiAuthConfig);
-      })
-      .catch((err) => {
-        console.log("Something went wrong. Error: ", err);
-      });
-
-    if (resetCallbacks) {
-      (this._firebaseUiConfig as CustomFirebaseUIAuthConfig).callbacks = null;
-    }
-  }
-
-  private getCallbacks(): any {
-    const signInSuccessWithAuthResult = (authResult: UserCredential, redirectUrl) => {
-      this.ngZone.run(() => {
-        this.signInSuccessWithAuthResultCallback.emit({
-          authResult,
-          redirectUrl
-        });
-      });
-      return this.firebaseUiConfig.signInSuccessUrl;
-    };
-
-    const signInFailureCallback = (error: firebaseui.auth.AuthUIError) => {
-      this.ngZone.run(() => {
-        this.signInFailureCallback.emit({
-          code: error.code,
-          credential: error.credential
-        });
-      });
-      return Promise.reject();
-    };
-
-    return {
-      signInSuccessWithAuthResult: signInSuccessWithAuthResult,
-      signInFailure: signInFailureCallback,
-    };
-  }
+  
 }

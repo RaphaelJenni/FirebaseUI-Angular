@@ -1,26 +1,33 @@
-import { Inject, Injectable } from '@angular/core';
+import { EventEmitter, Inject, Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from "firebase/app";
 import { auth } from 'firebaseui';
 import { DynamicLoaderService, Resource } from './dynamic-loader.service';
-import { CustomFirebaseUIAuthConfig, FirebaseUILanguages } from './firebaseui-angular-library.helper';
+import { CustomFirebaseUIAuthConfig, FirebaseUILanguages, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from './firebaseui-angular-library.helper';
 
 declare const firebaseui: { auth: { AuthUI: any } };
 declare const global: any;
 
+export const DEFAULT_FIREBASE_UI_AUTH_CONTAINER = "#firebaseui-auth-container";
+
 @Injectable()
 export class FirebaseuiAngularLibraryService {
+  private static readonly COMPUTED_CALLBACKS = "COMPUTED_CALLBACKS";
   public static firebaseUiInstance: auth.AuthUI | undefined = undefined;
+
+  public static signInSuccessWithAuthResultCallback: EventEmitter<FirebaseUISignInSuccessWithAuthResult> = new EventEmitter();
+  public static signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter();
 
   constructor(
     @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: CustomFirebaseUIAuthConfig,
     private _scriptLoaderService: DynamicLoaderService,
+    private ngZone: NgZone,
     private _angularFireAuth: AngularFireAuth) {
 
     // store the firebaseui instance in a static property to prevent double initialization
     if (!FirebaseuiAngularLibraryService.firebaseUiInstance) {
-      // Set language based on the received configs
-      this.setFirebaseUILanguage(this._firebaseUiConfig.language ?? "");
+      // Set language based on the received configs but don't show it yet. It will be shown by the firebaseui-angular-library.component.ts
+      this.setFirebaseUILanguage(this._firebaseUiConfig.language ?? "", null);
     }
   }
 
@@ -44,7 +51,18 @@ export class FirebaseuiAngularLibraryService {
     });
   }
 
-  async setFirebaseUILanguage(languageCode: string) {
+  /**
+   * Changes the current language of the FirebaseUI panel
+   * @param languageCode Code of the language to load (e.g.: 'en', 'es', 'it', ...)
+   * @param element Optional. Container element
+   */
+  async setFirebaseUILanguage(languageCode: string, element: string | Element = DEFAULT_FIREBASE_UI_AUTH_CONTAINER) {
+    // If an instance is already available, delete it. This prevents double initialization errors.
+    const currentInstance = FirebaseuiAngularLibraryService.firebaseUiInstance;
+    if (currentInstance) {
+      await currentInstance.delete();
+    }
+
     let instance: auth.AuthUI;
 
     // if the language has not been passed or if it's 'en', use the firebaseui version that ships with npm
@@ -60,11 +78,11 @@ export class FirebaseuiAngularLibraryService {
 
       // Otherwise we'll use a version of the same library from CDN.
       // Expose a reference to the firebase object or the firebaseui won't work
-      if (typeof window !== "undefined") {
+      if (typeof window !== "undefined" && typeof window.firebase === "undefined") {
         window.firebase = firebase;
       }
 
-      if (typeof global !== "undefined") {
+      if (typeof global !== "undefined" && typeof global["firebase"] === "undefined") {
         global["firebase"] = firebase;
       }
 
@@ -94,7 +112,75 @@ export class FirebaseuiAngularLibraryService {
 
     // Set the static reference and resolve the Promise
     FirebaseuiAngularLibraryService.firebaseUiInstance = instance;
+
+    if (element) {
+      // Start the UI
+      await this.start(element);
+    }
+
     return FirebaseuiAngularLibraryService.firebaseUiInstance;
+  }
+
+  /**
+   * Shows FirebaseUI
+   * @param element A container element
+   */
+  async start(element: string | Element) {
+    const instance = await this.getFirebaseUiInstance();
+    const config = this.getUIAuthConfig();
+
+    // Check if callbacks got computed to reset them again after providing the to firebaseui.
+    // Necessary for allowing updating the firebaseui config during runtime.
+    let resetCallbacks = false;
+
+    if (config[FirebaseuiAngularLibraryService.COMPUTED_CALLBACKS]) {
+      resetCallbacks = true;
+      delete config[FirebaseuiAngularLibraryService.COMPUTED_CALLBACKS];
+    }
+
+    delete config["language"];
+
+    instance.start(element, config);
+
+    if (resetCallbacks) {
+      this._firebaseUiConfig.callbacks = null;
+    }
+  }
+
+  private getUIAuthConfig(): CustomFirebaseUIAuthConfig {
+    if (!this._firebaseUiConfig.callbacks) {
+      this._firebaseUiConfig[FirebaseuiAngularLibraryService.COMPUTED_CALLBACKS] = true;
+      this._firebaseUiConfig.callbacks = this.getCallbacks();
+    }
+    return this._firebaseUiConfig;
+  }
+
+  private getCallbacks(): any {
+
+    const signInSuccessWithAuthResult = (authResult: firebase.auth.UserCredential, redirectUrl: string) => {
+      this.ngZone.run(() => {
+        FirebaseuiAngularLibraryService.signInSuccessWithAuthResultCallback.emit({
+          authResult,
+          redirectUrl
+        });
+      });
+      return this._firebaseUiConfig.signInSuccessUrl;
+    };
+
+    const signInFailureCallbackResult = (error: firebaseui.auth.AuthUIError) => {
+      this.ngZone.run(() => {
+        FirebaseuiAngularLibraryService.signInFailureCallback.emit({
+          code: error.code,
+          credential: error.credential
+        });
+      });
+      return Promise.reject();
+    };
+
+    return {
+      signInSuccessWithAuthResult: signInSuccessWithAuthResult,
+      signInFailure: signInFailureCallbackResult,
+    };
   }
 
 }
