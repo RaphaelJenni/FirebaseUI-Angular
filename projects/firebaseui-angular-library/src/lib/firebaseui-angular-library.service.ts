@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from "firebase/app";
 import { auth } from 'firebaseui';
 import { DynamicLoaderService, Resource } from './dynamic-loader.service';
-import { CustomFirebaseUIAuthConfig, FirebaseUILanguages, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from './firebaseui-angular-library.helper';
+import { ExtendedFirebaseUIAuthConfig, FirebaseUILanguages, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from './firebaseui-angular-library.helper';
 
 declare const firebaseui: { auth: { AuthUI: any } };
 declare const global: any;
@@ -23,7 +23,7 @@ export class FirebaseuiAngularLibraryService {
   public static signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter();
 
   constructor(
-    @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: CustomFirebaseUIAuthConfig,
+    @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: ExtendedFirebaseUIAuthConfig,
     private _scriptLoaderService: DynamicLoaderService,
     private ngZone: NgZone,
     private _angularFireAuth: AngularFireAuth) {
@@ -171,7 +171,7 @@ export class FirebaseuiAngularLibraryService {
     return null;
   }
 
-  private getUIAuthConfig(): CustomFirebaseUIAuthConfig {
+  private getUIAuthConfig(): ExtendedFirebaseUIAuthConfig {
     if (!this._firebaseUiConfig.callbacks) {
       this._firebaseUiConfig[FirebaseuiAngularLibraryService.COMPUTED_CALLBACKS] = true;
       this._firebaseUiConfig.callbacks = this.getCallbacks();

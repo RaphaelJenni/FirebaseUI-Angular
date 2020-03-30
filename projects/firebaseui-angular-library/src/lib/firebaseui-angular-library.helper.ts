@@ -11,7 +11,7 @@ export const firebase = firebaseOriginal;
 export const firebaseui = firebaseuiOriginal;
 
 export type NativeFirebaseUIAuthConfig = firebaseuiOriginal.auth.Config;
-export type CustomFirebaseUIAuthConfig = firebaseuiOriginal.auth.Config & {
+export type ExtendedFirebaseUIAuthConfig = NativeFirebaseUIAuthConfig & {
   language?: string
 };
 

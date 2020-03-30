@@ -1,7 +1,7 @@
 import {Component, Inject, OnDestroy, OnInit, EventEmitter, Output} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Subscription} from 'rxjs';
-import {CustomFirebaseUIAuthConfig, FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure} from './firebaseui-angular-library.helper';
+import {ExtendedFirebaseUIAuthConfig, FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure} from './firebaseui-angular-library.helper';
 import {User} from 'firebase/app';
 import {FirebaseuiAngularLibraryService, DEFAULT_FIREBASE_UI_AUTH_CONTAINER} from './firebaseui-angular-library.service';
 import 'firebase/auth';
@@ -18,19 +18,19 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(private angularFireAuth: AngularFireAuth,
-              @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: CustomFirebaseUIAuthConfig,
-              @Inject('firebaseUIAuthConfigFeature') private _firebaseUiConfig_Feature: CustomFirebaseUIAuthConfig,
+              @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: ExtendedFirebaseUIAuthConfig,
+              @Inject('firebaseUIAuthConfigFeature') private _firebaseUiConfig_Feature: ExtendedFirebaseUIAuthConfig,
               private firebaseUIService: FirebaseuiAngularLibraryService) {
 
     FirebaseuiAngularLibraryService.signInSuccessWithAuthResultCallback = this.signInSuccessWithAuthResultCallback;
     FirebaseuiAngularLibraryService.signInFailureCallback = this.signInFailureCallback;
   }
 
-  get firebaseUiConfig(): CustomFirebaseUIAuthConfig {
+  get firebaseUiConfig(): ExtendedFirebaseUIAuthConfig {
     return {
       ...this._firebaseUiConfig,
       ...this._firebaseUiConfig_Feature
-    } as CustomFirebaseUIAuthConfig;
+    } as ExtendedFirebaseUIAuthConfig;
   }
 
   ngOnInit(): void {
