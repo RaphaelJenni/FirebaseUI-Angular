@@ -12,8 +12,11 @@ export const DEFAULT_FIREBASE_UI_AUTH_CONTAINER = "#firebaseui-auth-container";
 
 @Injectable()
 export class FirebaseuiAngularLibraryService {
+
   private static readonly COMPUTED_CALLBACKS = "COMPUTED_CALLBACKS";
+
   public static firebaseUiInstance: auth.AuthUI | undefined = undefined;
+  private static firstLoad = true;
 
   public static signInSuccessWithAuthResultCallback: EventEmitter<FirebaseUISignInSuccessWithAuthResult> = new EventEmitter();
   public static signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter();
@@ -65,11 +68,14 @@ export class FirebaseuiAngularLibraryService {
 
     let instance: auth.AuthUI;
 
-    // if the language has not been passed or if it's 'en', use the firebaseui version that ships with npm
-    if (!languageCode || languageCode.toLowerCase() === "en") {
+    // if the language has not been passed or if it's 'en', use the firebaseui version that ships with npm, 
+    // unless user has already changed language at least once. In this case the imported version from NPM would
+    // be overwritten by the last version imported from the CDNs)
+    if (!languageCode || (languageCode.toLowerCase() === "en" && FirebaseuiAngularLibraryService.firstLoad)) {
       instance = new auth.AuthUI(this._angularFireAuth.auth);
     } else {
 
+      FirebaseuiAngularLibraryService.firstLoad = false;
       const languages = FirebaseUILanguages.filter((l) => l.code.toLowerCase() === languageCode.toLowerCase());
 
       if (languages.length !== 1) {

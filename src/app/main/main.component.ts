@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure} from 'firebaseui-angular';
-import {Router} from '@angular/router';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { FirebaseuiAngularLibraryService, FirebaseUILanguages, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 
 @Component({
   selector: 'fbui-ng-main',
@@ -10,8 +10,12 @@ import {Router} from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
+  public languages = FirebaseUILanguages;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private firebaseUiService: FirebaseuiAngularLibraryService) {
   }
 
   ngOnInit(): void {
@@ -31,4 +35,14 @@ export class MainComponent implements OnInit {
     console.warn('errorCallback', data);
   }
 
+  changeLang(code: string) {
+    this.firebaseUiService
+      .setFirebaseUILanguage(code)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
