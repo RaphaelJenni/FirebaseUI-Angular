@@ -17,6 +17,7 @@ export class FirebaseuiAngularLibraryService {
 
   public static firebaseUiInstance: auth.AuthUI | undefined = undefined;
   private static firstLoad = true;
+  private static currentLanguageCode: string = "";
 
   public static signInSuccessWithAuthResultCallback: EventEmitter<FirebaseUISignInSuccessWithAuthResult> = new EventEmitter();
   public static signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter();
@@ -67,6 +68,8 @@ export class FirebaseuiAngularLibraryService {
     }
 
     let instance: auth.AuthUI;
+
+    FirebaseuiAngularLibraryService.currentLanguageCode = languageCode ? languageCode.toLowerCase() : "en";
 
     // if the language has not been passed or if it's 'en', use the firebaseui version that ships with npm, 
     // unless user has already changed language at least once. In this case the imported version from NPM would
@@ -151,6 +154,21 @@ export class FirebaseuiAngularLibraryService {
     if (resetCallbacks) {
       this._firebaseUiConfig.callbacks = null;
     }
+  }
+
+  /**
+   * Returns the currently selected language, as an instance of FirebaseUILanguage.
+   * It could return null if the current language can't be parsed.
+   */
+  getCurrentLanguage() {
+    const code = FirebaseuiAngularLibraryService.currentLanguageCode;
+    const matching = FirebaseUILanguages.filter((lang) => lang.code.toLowerCase() === code.toLowerCase());
+
+    if (matching.length === 1) {
+      return matching[0];
+    }
+
+    return null;
   }
 
   private getUIAuthConfig(): CustomFirebaseUIAuthConfig {

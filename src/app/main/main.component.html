@@ -2,7 +2,7 @@
 <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)"
              (signInFailure)="errorCallback($event)"></firebase-ui>
 
-<select (change)="changeLang($event.target.value)">
+<select (change)="changeLang($event.target.value)" [(ngModel)]="currentLang">
     <option *ngFor="let lang of languages" [value]="lang.code">{{lang.name}}</option>
 </select>
 
