@@ -1,12 +1,7 @@
 import {Component, EventEmitter, Inject, NgZone, OnDestroy, OnInit, Output} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Subscription} from 'rxjs';
-import {
-  FirebaseUISignInFailure,
-  FirebaseUISignInSuccessWithAuthResult,
-  NativeFirebaseUIAuthConfig,
-  CustomFirebaseUIAuthConfig,
-} from './firebaseui-angular-library.helper';
+import {FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult, CustomFirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
 import {User} from 'firebase/app';
 import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
@@ -66,7 +61,6 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   }
 
   private firebaseUIPopup() {
-    const firebaseUiInstance = this.firebaseUIService.firebaseUiInstance;
     const uiAuthConfig = this.getUIAuthConfig();
 
     // Check if callbacks got computed to reset them again after providing the to firebaseui.
@@ -81,8 +75,14 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       delete uiAuthConfig["language"];
     }
 
-    // show the firebaseui
-    firebaseUiInstance.start('#firebaseui-auth-container', uiAuthConfig);
+    this.firebaseUIService
+      .getFirebaseUiInstance()
+      .then((instance) => {
+        instance.start('#firebaseui-auth-container', uiAuthConfig);
+      })
+      .catch((err) => {
+        console.log("Something went wrong. Error: ", err);
+      });
 
     if (resetCallbacks) {
       (this._firebaseUiConfig as CustomFirebaseUIAuthConfig).callbacks = null;

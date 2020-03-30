@@ -19,60 +19,81 @@ export class FirebaseuiAngularLibraryService {
 
     // store the firebaseui instance in a static property to prevent double initialization
     if (!FirebaseuiAngularLibraryService.firebaseUiInstance) {
-
-      // if the language has not been passed or if it's 'en', use the firebaseui version that ships with npm
-      if (!_firebaseUiConfig.language || _firebaseUiConfig.language.toLowerCase() === "en") {
-        FirebaseuiAngularLibraryService.firebaseUiInstance = new auth.AuthUI(this._angularFireAuth.auth);
-      } else {
-        // Otherwise we'll use a version of the same library from CDN.
-        // Expose a reference to the firebase object or the firebaseui won't work
-        if (typeof window !== "undefined") {
-          window.firebase = firebase;
-        }
-
-        if (typeof global !== "undefined") {
-          global["firebase"] = firebase;
-        }
-
-        // Finally set the correct language
-        this.setFirebaseUILanguage(this._firebaseUiConfig.language);
-      }
+      // Set language based on the received configs
+      this.setFirebaseUILanguage(this._firebaseUiConfig.language ?? "");
     }
   }
 
-  get firebaseUiInstance() {
-    return FirebaseuiAngularLibraryService.firebaseUiInstance;
+  /**
+   * This method returns the firebaseui instance once it's available.
+   * @param pollingMs Number of milliseconds to wait before each check to see if instance is available
+   */
+  async getFirebaseUiInstance(pollingMs: number = 50): Promise<auth.AuthUI> {
+    return await new Promise((resolve) => {
+
+      // Each "pollingMs" this method will check if the firebaseUiInstance has been defined
+      const interval = setInterval(() => {
+
+        // If so, clear the interval and resolve the Promise, otherwise keep polling
+        if (FirebaseuiAngularLibraryService.firebaseUiInstance) {
+          clearInterval(interval);
+          return resolve(FirebaseuiAngularLibraryService.firebaseUiInstance);
+        }
+
+      }, pollingMs);
+    });
   }
 
   async setFirebaseUILanguage(languageCode: string) {
-    const languages = FirebaseUILanguages.filter((l) => l.code.toLowerCase() === languageCode.toLowerCase());
+    let instance: auth.AuthUI;
 
-    if (languages.length !== 1) {
-      throw new Error("Invalid language code");
-    }
+    // if the language has not been passed or if it's 'en', use the firebaseui version that ships with npm
+    if (!languageCode || languageCode.toLowerCase() === "en") {
+      instance = new auth.AuthUI(this._angularFireAuth.auth);
+    } else {
 
-    const language = languages[0];
-    const toLoad: Resource[] = [
-      {
-        name: `firebaseui-${language.code}`,
-        type: "js",
-        src: `https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth__${language.code}.js`
+      const languages = FirebaseUILanguages.filter((l) => l.code.toLowerCase() === languageCode.toLowerCase());
+
+      if (languages.length !== 1) {
+        throw new Error("Invalid language code");
       }
-    ];
 
-    // If the selected language is a Right to Left one, load also the special css file
-    if (language.isRtL) {
-      toLoad.push({
-        name: "firebaseui-css-rtl",
-        type: "css",
-        src: "https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth-rtl.css"
-      });
+      // Otherwise we'll use a version of the same library from CDN.
+      // Expose a reference to the firebase object or the firebaseui won't work
+      if (typeof window !== "undefined") {
+        window.firebase = firebase;
+      }
+
+      if (typeof global !== "undefined") {
+        global["firebase"] = firebase;
+      }
+
+      const language = languages[0];
+      const toLoad: Resource[] = [
+        {
+          name: `firebaseui-${language.code}`,
+          type: "js",
+          src: `https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth__${language.code}.js`
+        }
+      ];
+
+      // If the selected language is a Right to Left one, load also the special css file
+      if (language.isRtL) {
+        toLoad.push({
+          name: "firebaseui-css-rtl",
+          type: "css",
+          src: "https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth-rtl.css"
+        });
+      }
+
+      await this._scriptLoaderService.registerAndLoad(...toLoad);
+
+      // and create a new firebaseui instance, using the imported firebaseui
+      instance = new firebaseui.auth.AuthUI(this._angularFireAuth.auth);
     }
 
-    await this._scriptLoaderService.registerAndLoad(...toLoad);
-
-    // and create a new firebaseui instance, using the imported firebaseui
-    FirebaseuiAngularLibraryService.firebaseUiInstance = new firebaseui.auth.AuthUI(this._angularFireAuth.auth);
+    // Set the static reference and resolve the Promise
+    FirebaseuiAngularLibraryService.firebaseUiInstance = instance;
     return FirebaseuiAngularLibraryService.firebaseUiInstance;
   }
 
