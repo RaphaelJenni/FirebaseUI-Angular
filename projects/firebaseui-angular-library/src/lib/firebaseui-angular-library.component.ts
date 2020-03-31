@@ -26,7 +26,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     FirebaseuiAngularLibraryService.signInFailureCallback = this.signInFailureCallback;
   }
 
-  get firebaseUiConfig(): ExtendedFirebaseUIAuthConfig {
+  getFirebaseUiConfig(): ExtendedFirebaseUIAuthConfig {
     return {
       ...this._firebaseUiConfig,
       ...this._firebaseUiConfig_Feature
@@ -36,7 +36,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.angularFireAuth.authState.subscribe((value: User) => {
       if ((value && value.isAnonymous) || !value) {
-        if (this.firebaseUiConfig.signInOptions.length !== 0) {
+        if (this.getFirebaseUiConfig().signInOptions.length !== 0) {
           this.firebaseUIPopup();
         } else {
           throw new Error('There must be at least one AuthProvider.');
