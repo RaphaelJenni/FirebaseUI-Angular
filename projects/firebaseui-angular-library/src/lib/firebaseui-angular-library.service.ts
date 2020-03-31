@@ -14,6 +14,8 @@ export const DEFAULT_FIREBASE_UI_AUTH_CONTAINER = "#firebaseui-auth-container";
 export class FirebaseuiAngularLibraryService {
 
   private static readonly COMPUTED_CALLBACKS = "COMPUTED_CALLBACKS";
+  private static readonly FIREBASEUI_CDN_VERSION = "4.5.0";
+  private static readonly FIREBASEUI_CDN_URL = `https://www.gstatic.com/firebasejs/ui/${FirebaseuiAngularLibraryService.FIREBASEUI_CDN_VERSION}`;
 
   public static firebaseUiInstance: auth.AuthUI | undefined = undefined;
   private static firstLoad = true;
@@ -102,7 +104,7 @@ export class FirebaseuiAngularLibraryService {
         {
           name: `firebaseui-${language.code}`,
           type: "js",
-          src: `https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth__${language.code}.js`
+          src: `${FirebaseuiAngularLibraryService.FIREBASEUI_CDN_URL}/firebase-ui-auth__${language.code}.js`
         }
       ];
 
@@ -111,7 +113,7 @@ export class FirebaseuiAngularLibraryService {
         toLoad.push({
           name: "firebaseui-css-rtl",
           type: "css",
-          src: "https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth-rtl.css"
+          src: `${FirebaseuiAngularLibraryService.FIREBASEUI_CDN_URL}/firebase-ui-auth-rtl.css`
         });
       }
 
@@ -121,7 +123,7 @@ export class FirebaseuiAngularLibraryService {
         toLoad.push({
           name: "firebaseui-css",
           type: "css",
-          src: "https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css"
+          src: `${FirebaseuiAngularLibraryService.FIREBASEUI_CDN_URL}/firebase-ui-auth.css`
         });
       }
 
