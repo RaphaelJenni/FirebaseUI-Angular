@@ -1,5 +1,5 @@
 # Changelog
-## 5.0.0-beta.0
+## 5.0.0
 * Upgrade library to support @angular/fire@6.0.0 [#121](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/121)
 
 ## 4.1.0
