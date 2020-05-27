@@ -1,7 +1,9 @@
 # Changelog
+## 5.0.0
+* Upgrade library to support @angular/fire@6.0.0 [#121](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/121)
+
 ## 4.1.0
 * Update to Angular 9 [#113](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/92) Thanks to @l0ll098 for the PR
-
 
 ## 4.0.0
 * Dump old configurations

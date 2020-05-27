@@ -1,11 +1,9 @@
-import { EventEmitter, Inject, Injectable, NgZone } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from "firebase/app";
-import { auth } from 'firebaseui';
+import { EventEmitter, Inject, Injectable, NgZone, Optional } from '@angular/core';
+import { FIREBASE_APP_NAME, FIREBASE_OPTIONS, FirebaseApp, FirebaseAppConfig, FirebaseOptions, ɵfirebaseAppFactory } from '@angular/fire';
+import * as firebaseui from 'firebaseui';
 import { DynamicLoaderService, Resource } from './dynamic-loader.service';
-import { ExtendedFirebaseUIAuthConfig, FirebaseUILanguages, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from './firebaseui-angular-library.helper';
+import { ExtendedFirebaseUIAuthConfig, FirebaseUILanguages, FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult, } from './firebaseui-angular-library.helper';
 
-declare const firebaseui: { auth: { AuthUI: any } };
 declare const global: any;
 
 export const DEFAULT_FIREBASE_UI_AUTH_CONTAINER = "#firebaseui-auth-container";
@@ -17,18 +15,24 @@ export class FirebaseuiAngularLibraryService {
   private static readonly FIREBASEUI_CDN_VERSION = "4.5.0";
   private static readonly FIREBASEUI_CDN_URL = `https://www.gstatic.com/firebasejs/ui/${FirebaseuiAngularLibraryService.FIREBASEUI_CDN_VERSION}`;
 
-  public static firebaseUiInstance: auth.AuthUI | undefined = undefined;
+  public static firebaseUiInstance: firebaseui.auth.AuthUI | undefined = undefined;
   private static firstLoad = true;
   private static currentLanguageCode: string = "";
 
   public static signInSuccessWithAuthResultCallback: EventEmitter<FirebaseUISignInSuccessWithAuthResult> = new EventEmitter();
   public static signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter();
 
+  private firebaseAppInstance: FirebaseApp;
+
   constructor(
     @Inject('firebaseUIAuthConfig') private _firebaseUiConfig: ExtendedFirebaseUIAuthConfig,
     private _scriptLoaderService: DynamicLoaderService,
-    private ngZone: NgZone,
-    private _angularFireAuth: AngularFireAuth) {
+    @Inject(FIREBASE_OPTIONS) options: FirebaseOptions,
+    @Optional() @Inject(FIREBASE_APP_NAME) nameOrConfig: string | FirebaseAppConfig | null | undefined,
+    private ngZone: NgZone) {
+
+    // noinspection JSNonASCIINames
+    this.firebaseAppInstance = ɵfirebaseAppFactory(options, this.ngZone, nameOrConfig);
 
     // store the firebaseui instance in a static property to prevent double initialization
     if (!FirebaseuiAngularLibraryService.firebaseUiInstance) {
@@ -41,7 +45,7 @@ export class FirebaseuiAngularLibraryService {
    * This method returns the firebaseui instance once it's available.
    * @param pollingMs Number of milliseconds to wait before each check to see if instance is available
    */
-  async getFirebaseUiInstance(pollingMs: number = 50): Promise<auth.AuthUI> {
+  async getFirebaseUiInstance(pollingMs: number = 50): Promise<firebaseui.auth.AuthUI> {
     return await new Promise((resolve) => {
 
       // Each "pollingMs" this method will check if the firebaseUiInstance has been defined
@@ -63,15 +67,16 @@ export class FirebaseuiAngularLibraryService {
    * @param element Optional. Container element
    */
   async setFirebaseUILanguage(languageCode: string, element: string | Element = DEFAULT_FIREBASE_UI_AUTH_CONTAINER) {
+
     // If an instance is already available, delete it. This prevents double initialization errors.
     const currentInstance = FirebaseuiAngularLibraryService.firebaseUiInstance;
     if (currentInstance) {
       await currentInstance.delete();
     }
 
-    let instance: auth.AuthUI;
+    let instance: firebaseui.auth.AuthUI;
     const previousLanguageCode = FirebaseuiAngularLibraryService.currentLanguageCode;
-    const previousLanguage = previousLanguageCode? this.getLanguageByCode(previousLanguageCode) :null;
+    const previousLanguage = previousLanguageCode ? this.getLanguageByCode(previousLanguageCode) : null;
 
     FirebaseuiAngularLibraryService.currentLanguageCode = languageCode ? languageCode.toLowerCase() : "en";
 
@@ -79,7 +84,7 @@ export class FirebaseuiAngularLibraryService {
     // unless user has already changed language at least once. In this case the imported version from NPM would
     // be overwritten by the last version imported from the CDNs)
     if (!languageCode || (languageCode.toLowerCase() === "en" && FirebaseuiAngularLibraryService.firstLoad)) {
-      instance = new auth.AuthUI(this._angularFireAuth.auth);
+      instance = new firebaseui.auth.AuthUI(this.firebaseAppInstance.auth());
     } else {
 
       FirebaseuiAngularLibraryService.firstLoad = false;
@@ -92,11 +97,13 @@ export class FirebaseuiAngularLibraryService {
       // Otherwise we'll use a version of the same library from CDN.
       // Expose a reference to the firebase object or the firebaseui won't work
       if (typeof window !== "undefined" && typeof window.firebase === "undefined") {
-        window.firebase = firebase;
+        // Semi-cheat: firebaseAppInstance is an instance of FirebaseApp, 
+        // but FirebaseUI uses an instance of the "vanilla" Firebase object (hence the cast to any and the "".firebase_" part)
+        window.firebase = (this.firebaseAppInstance as any).firebase_;
       }
 
       if (typeof global !== "undefined" && typeof global["firebase"] === "undefined") {
-        global["firebase"] = firebase;
+        global["firebase"] = (this.firebaseAppInstance as any).firebase_;
       }
 
       const language = languages[0];
@@ -130,7 +137,7 @@ export class FirebaseuiAngularLibraryService {
       await this._scriptLoaderService.registerAndLoad(...toLoad);
 
       // and create a new firebaseui instance, using the imported firebaseui
-      instance = new firebaseui.auth.AuthUI(this._angularFireAuth.auth);
+      instance = new firebaseui.auth.AuthUI(this.firebaseAppInstance.auth());
     }
 
     // Set the static reference and resolve the Promise
@@ -178,7 +185,7 @@ export class FirebaseuiAngularLibraryService {
     return this.getLanguageByCode(FirebaseuiAngularLibraryService.currentLanguageCode);
   }
 
-  private getLanguageByCode(code: string){
+  private getLanguageByCode(code: string) {
     const matching = FirebaseUILanguages.filter((lang) => lang.code.toLowerCase() === code.toLowerCase());
 
     if (matching.length === 1) {

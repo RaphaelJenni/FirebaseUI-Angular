@@ -27,7 +27,7 @@ export class MainComponent implements OnInit {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.afAuth.signOut();
   }
 
   successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
