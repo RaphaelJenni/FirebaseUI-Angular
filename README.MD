@@ -13,7 +13,7 @@ To install this library, run:
 $ npm install firebaseui-angular --save
 ```
 
-To run this library you need to have [AngularFire2](https://github.com/angular/angularfire2), [Firebase](https://firebase.google.com/docs/web/setup), 
+To run this library you need to have [AngularFire2](https://github.com/angular/angularfire2), [Firebase](https://firebase.google.com/docs/web/setup),
 [FirebaseUI-Web](https://github.com/firebase/firebaseui-web) installed.
 Fast install:
 ```bash
@@ -203,7 +203,8 @@ Don't forget to unsubscribe at the end.
 ```html
 <firebase-ui
     (signInSuccessWithAuthResult)="successCallback($event)"
-    (signInFailure)="errorCallback($event)"></firebase-ui>
+    (signInFailure)="errorCallback($event)"
+    (uiShown)="uiShownCallback()"></firebase-ui>
 ```
 
 ```typescript
@@ -213,7 +214,11 @@ successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult) {
 
 errorCallback(errorData: FirebaseUISignInFailure) {
     ...
-}  
+}
+
+uiShownCallback() {
+    ...
+}
 ```
 
 ### Disable autosign
@@ -272,7 +277,7 @@ If you have added the css to the angular.json but nothing happened. Try to resta
 ### ERROR in ./~/firebase/app/shared_promise.js
 
  This is a know issue in the firebase project. To fix that (for now), do that:
- 
+
 `npm install promise-polyfill --save-exact`
 
 ### `http://localhost:4200/images/buffer.svg?embed` 404 (Not Found)

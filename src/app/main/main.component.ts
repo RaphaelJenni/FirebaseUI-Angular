@@ -31,4 +31,7 @@ export class MainComponent implements OnInit {
     console.warn('errorCallback', data);
   }
 
+  uiShownCallback() {
+    console.log('UI shown');
+  }
 }

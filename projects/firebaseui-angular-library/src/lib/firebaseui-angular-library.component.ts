@@ -21,6 +21,7 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
 
   @Output('signInSuccessWithAuthResult') signInSuccessWithAuthResultCallback: EventEmitter<FirebaseUISignInSuccessWithAuthResult> = new EventEmitter(); // tslint:disable-line
   @Output('signInFailure') signInFailureCallback: EventEmitter<FirebaseUISignInFailure> = new EventEmitter(); // tslint:disable-line
+  @Output('uiShown') uiShownCallback: EventEmitter<void> = new EventEmitter(); // tslint:disable-line
 
   private subscription: Subscription;
 
@@ -84,8 +85,8 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getCallbacks(): any {
-    const signInSuccessWithAuthResult = (authResult: UserCredential, redirectUrl) => {
+  private getCallbacks(): any { // firebaseui.Callbacks
+    const signInSuccessWithAuthResultCallback = (authResult: UserCredential, redirectUrl) => {
       this.ngZone.run(() => {
         this.signInSuccessWithAuthResultCallback.emit({
           authResult,
@@ -105,9 +106,16 @@ export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
       return Promise.reject();
     };
 
+    const uiShownCallback = () => {
+      this.ngZone.run(() => {
+        this.uiShownCallback.emit();
+      });
+    };
+
     return {
-      signInSuccessWithAuthResult: signInSuccessWithAuthResult,
+      signInSuccessWithAuthResult: signInSuccessWithAuthResultCallback,
       signInFailure: signInFailureCallback,
+      uiShown: uiShownCallback
     };
   }
 }
