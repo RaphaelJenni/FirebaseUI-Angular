@@ -3,9 +3,10 @@
  * Copyright (c) 2017 Raphael Jenni
  */
 
-import * as firebaseOriginal from 'firebase/app';
-import UserCredential = firebase.auth.UserCredential;
 import * as firebaseuiOriginal from 'firebaseui';
+import firebaseOriginal from 'firebase/app';
+import UserCredential = firebaseOriginal.auth.UserCredential;
+import AuthCredential = firebaseOriginal.auth.AuthCredential;
 
 export const firebase = firebaseOriginal;
 export const firebaseui = firebaseuiOriginal;
@@ -20,5 +21,5 @@ export class FirebaseUISignInSuccessWithAuthResult {
 
 export class FirebaseUISignInFailure {
   code: string;
-  credential: firebaseOriginal.auth.AuthCredential;
+  credential: AuthCredential;
 }

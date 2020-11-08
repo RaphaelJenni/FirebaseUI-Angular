@@ -7,9 +7,10 @@ import {
   NativeFirebaseUIAuthConfig,
 } from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
-import {User} from 'firebase/app';
+import firebase from 'firebase/app';
 import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
 import 'firebase/auth';
+import User = firebase.User;
 import UserCredential = firebase.auth.UserCredential;
 
 @Component({

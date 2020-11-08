@@ -1,4 +1,7 @@
 # Changelog
+## 5.1.0
+* Add support for firebase@^8.0.0
+
 ## 5.0.1
 * Add support for uiShow Callback [#133](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/133)
 
