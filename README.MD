@@ -5,6 +5,16 @@
 
 ![Screenshot of Login screen](https://raw.githubusercontent.com/RaphaelJenni/FirebaseUI-Angular/master/assets/LoginScreen.PNG)
 
+## Compatibility
+
+| Angular | Firebase | AngularFire  | FirebaseUI | FirebaseUI-Angular |
+| --------|----------|--------------|------------|--------------------|
+| 10.2.2  | ^8.0.1   | ^6.0.4       | ^4.7.1     | 5.1.0              | 
+| ~8.2.13 | ^7.23.0  | ~5.2.1       | ~4.7.1     | ~4.0.1             |
+
+
+<sub>Version combinations not documented here __may__ work but are untested.</sub>
+
 ## Installation
 
 To install this library, run:
