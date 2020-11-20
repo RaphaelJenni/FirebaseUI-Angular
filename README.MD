@@ -9,7 +9,8 @@
 
 | Angular | Firebase | AngularFire  | FirebaseUI | FirebaseUI-Angular |
 | --------|----------|--------------|------------|--------------------|
-| 10.2.2  | ^8.0.1   | ^6.0.4       | ^4.7.1     | 5.1.0              | 
+| 11.0.2  | ^8.1.1   | ^6.1.1       | ^4.7.1     | 5.1.1              |
+| 10.2.2  | ^8.0.1   | ^6.0.4       | ^4.7.1     | 5.1.0              |
 | ~8.2.13 | ^7.23.0  | ~5.2.1       | ~4.7.1     | ~4.0.1             |
 
 
@@ -232,31 +233,23 @@ constructor(private firebaseuiAngularLibraryService: FirebaseuiAngularLibrarySer
 }
 ```
 
-## Sample
+## Contributing
 
-There is a sample project in the root folder.
-* Just replace the firebase config in `src\environments\environment.ts`.
-* Run `npm install`
-* Run `npm run build-lib`
-* Run `ng serve`
+Step 1: Fork and clone the repo from Github.
 
-## Development
+Step 2: There is a sample project in the root folder. Execute the following command in the root folder i.e. .../FirebaseUI-Angular > `npm install`
 
-The library sources are in `projects/firebaseui/angular/library`.
+Step 3: Ensure that you are using Angular CLI version >10. You can check your version with `ng --version` in the terminal.
 
-To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
+Step 4: Replace with your firebase config in `src\environments\environment.ts`.
 
-```bash
-$ npm run build-lib
-```
+Step 5: .../FirebaseUI-Angular > `npm run build-lib`
 
-To lint all `*.ts` files:
+Step 6: .../FirebaseUI-Angular > `ng serve`
 
-```bash
-$ npm run lint
-```
+You're welcome to fork the repo and contribute to library sources in `projects` > `firebaseui-angular-library` > `src` > `lib`.
 
-There are test files, but they are empty at the moment.
+There are test files, but they are empty at the moment. Writing unit test is a good start.
 
 ## Troubleshoot
 ### UI not rendered
