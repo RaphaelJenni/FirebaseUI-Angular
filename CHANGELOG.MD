@@ -1,5 +1,8 @@
 # Changelog
 ## 5.1.0
+* Update to support Angular 11
+
+## 5.1.0
 * Add support for firebase@^8.0.0
 
 ## 5.0.1
