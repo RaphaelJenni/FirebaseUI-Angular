@@ -233,7 +233,7 @@ constructor(private firebaseuiAngularLibraryService: FirebaseuiAngularLibrarySer
 }
 ```
 
-## Contributing
+## Contributing / Sample Application
 
 Step 1: Fork and clone the repo from Github.
 
