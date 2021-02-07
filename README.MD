@@ -9,6 +9,7 @@
 
 | Angular | Firebase | AngularFire  | FirebaseUI | FirebaseUI-Angular |
 | --------|----------|--------------|------------|--------------------|
+| 11.0.2  | ^8.2.4   | ^6.1.1       | ^4.7.3     | **5.1.x**  Use auth emulator 🤓         |
 | 11.0.2  | ^8.1.1   | ^6.1.1       | ^4.7.1     | 5.1.1              |
 | 10.2.2  | ^8.0.1   | ^6.0.4       | ^4.7.1     | 5.1.0              |
 | ~8.2.13 | ^7.23.0  | ~5.2.1       | ~4.7.1     | ~4.0.1             |
@@ -45,7 +46,7 @@ import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AngularFireModule} from '@angular/fire';
-import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/auth';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -90,7 +91,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
-  providers: [],
+  providers: [
+    { provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['localhost', 9099] : undefined },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
