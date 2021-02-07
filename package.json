@@ -30,8 +30,8 @@
     "@angular/platform-browser": "11.0.2",
     "@angular/platform-browser-dynamic": "11.0.2",
     "@angular/router": "11.0.2",
-    "firebase": "^8.1.1",
-    "firebaseui": "^4.7.1",
+    "firebase": "^8.2.4",
+    "firebaseui": "^4.7.3",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
