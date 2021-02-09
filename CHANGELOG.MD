@@ -1,4 +1,7 @@
 # Changelog
+## 5.1.2
+* Add support for Auth Emulator [#142](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/142)
+
 ## 5.1.1
 * Add support for Angular 11
 
