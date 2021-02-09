@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
+import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import * as firebaseui from 'firebaseui';
 import {FIREBASE_APP_NAME, FIREBASE_OPTIONS, FirebaseApp, FirebaseAppConfig, FirebaseOptions, ɵfirebaseAppFactory} from '@angular/fire';
 import _firebase from 'firebase/app';
@@ -16,7 +16,6 @@ export class FirebaseuiAngularLibraryService {
               zone: NgZone) {
     // noinspection JSNonASCIINames
     const app: FirebaseApp = ɵfirebaseAppFactory(options, zone, nameOrConfig);
-    // store the firebaseui instance on the window object to prevent double initialization
 
     const useEmulator: UseEmulatorArguments | null = _useEmulator;
 
@@ -27,6 +26,7 @@ export class FirebaseuiAngularLibraryService {
       }
       (<any>window).firebaseUiInstance = new firebaseui.auth.AuthUI(auth);
     }
+    // store the firebaseui instance on the window object to prevent double initialization
     this.firebaseUiInstance = (<any>window).firebaseUiInstance as firebaseui.auth.AuthUI;
   }
 }
