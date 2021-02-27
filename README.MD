@@ -236,6 +236,14 @@ constructor(private firebaseuiAngularLibraryService: FirebaseuiAngularLibrarySer
 }
 ```
 
+## Internationalizaion (i18n)
+
+The internationalization with just the npm package of the official firebase-ui isn't possible at the moment.
+
+For a custom version with i18n support use: [l0ll098/FirebaseUI-Angular-i18n](https://github.com/l0ll098/FirebaseUI-Angular-i18n)
+
+Thanks to [@l0ll098](https://github.com/l0ll098)!
+
 ## Contributing / Sample Application
 
 Step 1: Fork and clone the repo from Github.
