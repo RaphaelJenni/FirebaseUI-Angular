@@ -189,6 +189,54 @@ FirebaseUIModule.forFeature(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig)
 ```
 This will use the in `forRoot` provided configuration and overwrite just the newly provided values.
 
+##### Using a Provider Factory
+
+You may need to dynamically create the firebaseui configuration object based on application settings or the like. An example of this might be to conditionally enable certain providers for different deployments of the application.
+
+To do this you can use a provider factory to inject the  `firebaseUIAuthConfig` in your module like so:
+
+```typescript
+providers: [
+{
+  provide: 'appConfig',
+  useValue: { googleAuthEnabled: true, emailAuthEnabled: false }
+},
+{
+    provide: 'firebaseUIAuthConfig',
+    useFactory: (config) => {
+
+      // build firebase UI config object using settings from `config`
+
+      const fbUiConfig: firebaseui.auth.Config = {
+        signInFlow: 'redirect',
+        signInOptions: [],
+        tosUrl: null,
+        privacyPolicyUrl: null,
+        credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+      };
+
+      if (config.googleAuthEnabled) {
+        fbUiConfig.signInOptions.push(firebase.auth.GoogleAuthProvider.PROVIDER_ID);
+      }
+
+      if (config.emailAuthEnabled) {
+        fbUiConfig.signInOptions.push({
+          provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          requireDisplayName: true,
+          signInMethod: firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
+        });
+      }
+
+      // other providers as needed
+
+      return fbUiConfig;
+    },
+    deps: ['appConfig']
+  }
+]
+```
+
+In this case we are injecting a settings object `appConfig` into the provider factory. This object contains flags, such as `googleAuthEnabled` and `emailAuthEnabled` which are used to conditionally build the firebaseui config object. You would likely use a provider factory for this that reads settings from the environment or database.
 
 ### Listen to auth state changes
 ```typescript
