@@ -350,6 +350,12 @@ Put this into your styles.scss file:
 and put a `buffer.svg` file into `assets/images`.
 This will stop this error message.
 
+## Supporting the Project
+
+If you like the project and want to support me, I have a
+<a href="https://www.wowthemes.net/donate/" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+page.
+
 ## License
 
 MIT © [Raphael Jenni](mailto:info@rjenni.ch)
