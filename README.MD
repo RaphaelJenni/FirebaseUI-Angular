@@ -9,6 +9,7 @@
 
 | Angular | Firebase | AngularFire  | FirebaseUI | FirebaseUI-Angular | Note                            |
 | --------|----------|--------------|------------|--------------------|---------------------------------|
+| 12.1.0  | ^8.6.8   | ^6.1.5       | ^4.8.0     | 5.1.3              |                                 |
 | 11.0.2  | ^8.2.4   | ^6.1.1       | ^4.7.2     | 5.1.2              | *support for [auth emulator](https://firebase.google.com/docs/emulator-suite/connect_auth)*   |
 | 11.0.2  | ^8.1.1   | ^6.1.1       | ^4.7.1     | 5.1.1              |                                 |
 | 10.2.2  | ^8.0.1   | ^6.0.4       | ^4.7.1     | 5.1.0              |                                 |
