@@ -1,28 +1,27 @@
 language: node_js
 env:
-  - CXX=g++-4.8
+- CXX=g++-4.8
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
 script:
-  - npm run build-lib
+- npm run build-lib
 before_deploy:
-  - cd dist/firebaseui-angular-library
+- cd dist/firebaseui-angular-library
 deploy:
   provider: npm
-  email: info@rjenni.ch
-  api_token:
-    secure: DTHTJ0WLEgJQ7MwoI27BI+S9mQmScLsWMb+iOr0Hkir5GDJxF6lLHU2WVrH3n/a9BgcbH3E+6Gpm55O1M6R/Cda2pXoCWgpC5nD9q2A40B1OBvFcWWv42TRYHy8nDpNK1KllJjWzF7Z10k8rgINWLqogtQnvtt4RGTL6XdD8D3fTNw1KCsY3QRI2RLgzxJ7bysd6CW2grc00lgEjI7T0CJj/4sPOmNUpXoOd0Ecqi8ImDa9iZJOatc9OnBrriYCoq3OaZYjC2Yo14uKKZ+G8132CsXlPoiMZrNYDnC7bh43do/NL4fhJf9uAHT9iUELfxMhlirZ0HQGspyriXXDvGej4Hi9l5axwA2WxeJusw0Oh3iMELAkCXIlhJ7CfYFJ1drA28I6hUzmBm9+nADzfTpyNMd12d/8y6GSz+WDJGVSdbLzL+JsaHogOhUiuNObaUrBs1AnJQtC+guQ5ACDK68VOnX59obEsBakrGwQQTR8XuqEWytvC/l9gR46x6mWk+eRkPJF5V124Q8ZSFfE1u2M/fPaFffGgqKZ8upuAdAVNUey+ygfU440/8fXlgBNEFl9ZhYI9CqNULRij2hEX4GXvmQgvMIRvLOXaoS2cjhfnpd0y4pb6TJyBb8TFJnuL9AUVSBPaEzJpN3wkmUINPlWMQ4kiJAuxJcXXviCnZ2g=
+  email: "\\info@rjenni.ch"
+  api_key:
+    secure: fgSXr8KSW2+2epBxVai3anaaMgwtGvBImbCUeDAg2f6GPFU7VLa9Y2veFepwvHwS1ejjyR5Wia45NLg4byhcuOkYPLFLW8GR7iry5xPwNlur3yb4Tzck/5WFY2v0LaMqeCbS7Li5l3P+ypxxfqgPrRFW9VDQlgrPN2pQIGi8qmyr4CQsy82qsdkutNeiETWos5wFNS0i2r4t81nmQsFoadsI5Cifo6CnH+xDNCdPJAhR8xASJUwzucaspke1O6gfDvZNYHx1LAZqCLlIM70DW1FEsYKU4V/oj2hU1ZwKtALVIWGIsb7Lm3TJ5kgm5zE462DpAuRBwoMQKqrh4KX1X4OYe6duFKrwM4Ik+lbAVcajBkMURtc5GLkVZ3Vt8yYI2dpOCC4b1LWuGKotwkylCds1Oa7eXMTkqnDl1mU6S0FwqyG/0Bt5E3/L1wirRmwfj+aWx8nZPsZuX9N7bL9qU8ePV8dtBM7JxU0wjiQLqfINSkRXLvJOziTuwwkEiFBV1gNv6IpgkEBmJYXQBQhXMSS4XdRReWXPQfmR1lMO1qypgLW/P1vBSpfWelnSUkksoPvQncyX301OY5CaiGRcNK6wPZ3/HG/3xPHQ95zsCQPqg1cRjgxUZxBqpknm7SAQfny1m0H/khVHW5IUk86oqKHH16C1iM8HRYoAQ766F9M=
   on:
-    branch: master
     tags: true
     repo: RaphaelJenni/FirebaseUI-Angular
 notifications:
   email:
     recipients:
-      - "$EMAIL"
+    - "$EMAIL"
     on_failure: always
     on_success: always
