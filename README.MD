@@ -9,6 +9,7 @@
 
 | Angular | Firebase | AngularFire  | FirebaseUI | FirebaseUI-Angular | Note                            |
 | --------|----------|--------------|------------|--------------------|---------------------------------|
+| 12.1.0  | ^9.0.2   | ^7.0.4       | ^0.600.0 (@next version)     | 6.0.0-beta.0              |  Requires firebase v9 support by the official firebaseui lib (See [#877](https://github.com/firebase/firebaseui-web/issues/877)) - See CHANGELOG for details |
 | 12.1.0  | ^8.6.8   | ^6.1.5       | ^4.8.0     | 5.1.3              |                                 |
 | 11.0.2  | ^8.2.4   | ^6.1.1       | ^4.7.2     | 5.1.2              | *support for [auth emulator](https://firebase.google.com/docs/emulator-suite/connect_auth)*   |
 | 11.0.2  | ^8.1.1   | ^6.1.1       | ^4.7.1     | 5.1.1              |                                 |

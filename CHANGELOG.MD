@@ -1,4 +1,11 @@
 # Changelog
+
+## 6.0.0-beta.0
+* Compatibility with @angular/fire@^7.0.0 [#158](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/158)
+  * FirebaseUI needs to add support for firebase@9 (See [#877](https://github.com/firebase/firebaseui-web/issues/877)).
+    Use `firebase@next` version (0.600.0) to get support for the compat layer.
+* Change from View Engine to Ivy
+
 ## 5.1.3
 * Add support for Angular 12 [#157](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/157)
 
