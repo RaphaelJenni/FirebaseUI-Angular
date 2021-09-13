@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Inject, NgZone, OnDestroy, OnInit, Output} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Subscription} from 'rxjs';
 import {
   FirebaseUISignInFailure,
@@ -7,9 +7,9 @@ import {
   NativeFirebaseUIAuthConfig,
 } from './firebaseui-angular-library.helper';
 import * as firebaseui from 'firebaseui';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
-import 'firebase/auth';
+import 'firebase/compat/auth';
 import User = firebase.User;
 import UserCredential = firebase.auth.UserCredential;
 

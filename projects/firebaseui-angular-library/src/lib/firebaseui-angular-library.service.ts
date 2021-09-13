@@ -1,8 +1,10 @@
 import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import * as firebaseui from 'firebaseui';
-import {FIREBASE_APP_NAME, FIREBASE_OPTIONS, FirebaseApp, FirebaseAppConfig, FirebaseOptions, ɵfirebaseAppFactory} from '@angular/fire';
-import _firebase from 'firebase/app';
-import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/auth';
+import {FIREBASE_APP_NAME, FIREBASE_OPTIONS, FirebaseApp, ɵfirebaseAppFactory} from '@angular/fire/compat';
+import { FirebaseOptions, FirebaseAppSettings } from 'firebase/app';
+
+import _firebase from 'firebase/compat/app';
+import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
 
 type UseEmulatorArguments = [string, number];
 
@@ -11,7 +13,7 @@ export class FirebaseuiAngularLibraryService {
   public firebaseUiInstance: firebaseui.auth.AuthUI;
 
   constructor(@Inject(FIREBASE_OPTIONS) options: FirebaseOptions,
-              @Optional() @Inject(FIREBASE_APP_NAME) nameOrConfig: string | FirebaseAppConfig | null | undefined,
+              @Optional() @Inject(FIREBASE_APP_NAME) nameOrConfig: string | FirebaseAppSettings | null | undefined,
               @Optional() @Inject(USE_AUTH_EMULATOR) _useEmulator: any, // can't use the tuple here
               zone: NgZone) {
     // noinspection JSNonASCIINames

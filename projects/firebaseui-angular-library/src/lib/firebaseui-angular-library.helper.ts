@@ -4,7 +4,7 @@
  */
 
 import * as firebaseuiOriginal from 'firebaseui';
-import firebaseOriginal from 'firebase/app';
+import firebaseOriginal from 'firebase/compat/app';
 import UserCredential = firebaseOriginal.auth.UserCredential;
 import AuthCredential = firebaseOriginal.auth.AuthCredential;
 

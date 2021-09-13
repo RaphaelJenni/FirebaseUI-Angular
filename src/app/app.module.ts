@@ -5,8 +5,8 @@ import {AppComponent} from './app.component';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireModule} from '@angular/fire/compat';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
