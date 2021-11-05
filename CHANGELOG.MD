@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.1.0
+- Support for Angular 13
+
 ## 6.0.0
 - See 6.0.0-beta.0 - Update to firebaseui@6.0.0
 
