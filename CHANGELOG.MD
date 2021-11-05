@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.0.0
+- See 6.0.0-beta.0 - Update to firebaseui@6.0.0
+
 ## 6.0.0-beta.0
 * Compatibility with @angular/fire@^7.0.0 [#158](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/158)
   * FirebaseUI needs to add support for firebase@9 (See [#877](https://github.com/firebase/firebaseui-web/issues/877)).
