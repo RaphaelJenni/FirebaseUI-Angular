@@ -24,7 +24,7 @@ export class FirebaseuiAngularLibraryService {
     if (!(<any>window).firebaseUiInstance) {
       const auth: _firebase.auth.Auth = app.auth();
       if (useEmulator) {
-        auth.useEmulator(`http://${useEmulator.join(':')}`);
+        auth.useEmulator(useEmulator[0]);
       }
       (<any>window).firebaseUiInstance = new firebaseui.auth.AuthUI(auth);
     }
