@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.1.2
+- Add support for Angular 14 [#179](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/179)
+
 ## 6.1.1
 - Handle new emulator url correctly [#171](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/171) (Thanks to @Mikael-Eliasson)
 

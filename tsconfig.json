@@ -9,7 +9,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "es2020",
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "node_modules/@types"
