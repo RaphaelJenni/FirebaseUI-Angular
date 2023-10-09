@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.1.4
+- Add support for Angular 16
+
 ## 6.1.3
 - Add support for Angular 15 [#185](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/185)
 
