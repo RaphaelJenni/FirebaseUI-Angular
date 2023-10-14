@@ -20,12 +20,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+          registry-url: 'https://registry.npmjs.org'
       - name: checkout
         uses: actions/checkout@v4.1.0
       - run: npm ci
       - run: npm run build-lib
-      - run: cd dist/firebaseui-angular-library
-      - run: npm publish
+      - run: npm publish ./dist/firebaseui-angular-library
         if: github.ref_type == 'tag'
         env:
           NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}"
