@@ -1,0 +1,43 @@
+name: RaphaelJenni/FirebaseUI-Angular
+on:
+  push:
+    branches:
+    - "**/*"
+concurrency:
+#   # This item has no matching transformer
+#   maximum_number_of_builds: 0
+  group: "${{ github.ref }}"
+  cancel-in-progress: true
+env:
+  EMAIL: "${{ secrets.EMAIL }}"
+  GH_TOKEN: "${{ secrets.GH_TOKEN }}"
+  NPM_TOKEN: "${{ secrets.NPM_TOKEN }}"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v3.8.1
+      with:
+        node-version: 12.x
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - run: apt-get -y install g++-4.8
+    - run: npm install
+    - run: npm run build-lib
+    - run: cd dist/firebaseui-angular-library
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}"
+      if: "${{ github.event_name == 'push' && ${{ github.ref }} }}"
+#     # This item has no matching transformer
+#     - email:
+#         recipients:
+#         - "$EMAIL"
+#         on_failure: always
+#         on_success: always
+    strategy:
+      matrix:
+        CXX:
+        - g++-4.8
+    env:
+      CXX: "${{ matrix.CXX }}"
