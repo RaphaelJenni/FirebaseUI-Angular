@@ -7,8 +7,10 @@ on:
 concurrency:
   group: "${{ github.ref }}"
   cancel-in-progress: true
+
 env:
   NPM_TOKEN: "${{ secrets.NPM_TOKEN }}"
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
