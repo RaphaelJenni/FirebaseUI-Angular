@@ -16,10 +16,10 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: '**/.nvmrc'
       - name: checkout
         uses: actions/checkout@v4.1.0
-      - run: apt-get -y install g++-4.8
+#      - run: apt-get -y install g++-4.8
       - run: npm ci
       - run: npm run build-lib
       - run: cd dist/firebaseui-angular-library
