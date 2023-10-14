@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version-file: '**/.nvmrc'
+          node-version: '16'
       - name: checkout
         uses: actions/checkout@v4.1.0
 #      - run: apt-get -y install g++-4.8
