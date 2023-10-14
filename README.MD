@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/RaphaelJenni/FirebaseUI-Angular.svg?branch=master)](https://app.travis-ci.com/RaphaelJenni/FirebaseUI-Angular)
+[![Build Status](https://github.com/RaphaelJenni/FirebaseUI-Angular/actions/workflows/firebaseui-angular.yml/badge.svg)](https://github.com/RaphaelJenni/FirebaseUI-Angular/actions/workflows/firebaseui-angular.yml/badge.svg)
 [![npm version](https://badge.fury.io/js/firebaseui-angular.svg)](https://badge.fury.io/js/firebaseui-angular)
 
 # FirebaseUi-Angular
