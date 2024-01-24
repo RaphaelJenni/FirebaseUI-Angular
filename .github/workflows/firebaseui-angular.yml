@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
       - name: checkout
         uses: actions/checkout@v4.1.0
