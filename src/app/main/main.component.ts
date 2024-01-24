@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult} from 'firebaseui-angular';
-import {Router} from '@angular/router';
+import { FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult, FirebaseUIModule } from 'firebaseui-angular';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'fbui-ng-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'fbui-ng-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    standalone: true,
+    imports: [FirebaseUIModule, RouterLink]
 })
 export class MainComponent implements OnInit {
 

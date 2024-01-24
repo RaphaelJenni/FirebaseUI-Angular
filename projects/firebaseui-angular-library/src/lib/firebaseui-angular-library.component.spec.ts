@@ -14,24 +14,24 @@ describe('FirebaseuiAngularLibraryComponent', () => {
     firebaseAuthState = new Subject();
 
     TestBed.configureTestingModule({
-      declarations: [FirebaseuiAngularLibraryComponent],
-      providers: [
+    imports: [FirebaseuiAngularLibraryComponent],
+    providers: [
         {
-          provide: AngularFireAuth,
-          useValue: new class {
-            authState = firebaseAuthState.asObservable();
-          }()
+            provide: AngularFireAuth,
+            useValue: new class {
+                authState = firebaseAuthState.asObservable();
+            }()
         },
         {
-          provide: FirebaseuiAngularLibraryService,
-          useValue: new class {
-            firebaseUiInstance = {};
-          }
+            provide: FirebaseuiAngularLibraryService,
+            useValue: new class {
+                firebaseUiInstance = {};
+            }
         },
-        {provide: 'firebaseUIAuthConfig', useValue: {main: 'MAIN', overwritten: 'MAIN'}},
-        {provide: 'firebaseUIAuthConfigFeature', useValue: {feature: 'FEATURE', overwritten: 'FEATURE'}}
-      ]
-    })
+        { provide: 'firebaseUIAuthConfig', useValue: { main: 'MAIN', overwritten: 'MAIN' } },
+        { provide: 'firebaseUIAuthConfigFeature', useValue: { feature: 'FEATURE', overwritten: 'FEATURE' } }
+    ]
+})
       .compileComponents();
   }));
 

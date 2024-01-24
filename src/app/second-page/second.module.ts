@@ -10,15 +10,16 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FirebaseUIModule.forFeature({
-      signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID]
-    }),
-    RouterModule.forChild(routes)
-  ],
-  declarations: [SecondPageComponent]
+    imports: [
+        CommonModule,
+        FirebaseUIModule.forFeature({
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID
+            ]
+        }),
+        RouterModule.forChild(routes),
+        SecondPageComponent
+    ]
 })
 export class SecondModule {
 }

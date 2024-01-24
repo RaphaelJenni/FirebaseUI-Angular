@@ -14,8 +14,9 @@ import User = firebase.User;
 import UserCredential = firebase.auth.UserCredential;
 
 @Component({
-  selector: 'firebase-ui',
-  template: '<div id="firebaseui-auth-container"></div>'
+    selector: 'firebase-ui',
+    template: '<div id="firebaseui-auth-container"></div>',
+    standalone: true
 })
 export class FirebaseuiAngularLibraryComponent implements OnInit, OnDestroy {
   private static readonly COMPUTED_CALLBACKS = 'COMPUTED_CALLBACKS';

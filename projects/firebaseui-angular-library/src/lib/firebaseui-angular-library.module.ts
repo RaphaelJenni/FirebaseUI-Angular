@@ -5,12 +5,12 @@ import {NativeFirebaseUIAuthConfig} from './firebaseui-angular-library.helper';
 import {FirebaseuiAngularLibraryService} from './firebaseui-angular-library.service';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [FirebaseuiAngularLibraryComponent],
-  providers: [FirebaseuiAngularLibraryService],
-  exports: [FirebaseuiAngularLibraryComponent]
+    imports: [
+        CommonModule,
+        FirebaseuiAngularLibraryComponent
+    ],
+    providers: [FirebaseuiAngularLibraryService],
+    exports: [FirebaseuiAngularLibraryComponent]
 })
 export class FirebaseUIModule {
   static forRoot(firebaseUiAuthConfig: NativeFirebaseUIAuthConfig): ModuleWithProviders<FirebaseUIModule> {

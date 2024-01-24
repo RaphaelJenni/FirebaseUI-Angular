@@ -9,12 +9,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FirebaseUIModule.forFeature({tosUrl: 'MAIN_MODULE'}),
-    RouterModule.forChild(routes)
-  ],
-  declarations: [MainComponent]
+    imports: [
+        CommonModule,
+        FirebaseUIModule.forFeature({ tosUrl: 'MAIN_MODULE' }),
+        RouterModule.forChild(routes),
+        MainComponent
+    ]
 })
 export class MainModule {
 }
