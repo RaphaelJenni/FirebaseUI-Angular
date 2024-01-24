@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.0
+- Update dependencies
+- Remove support for legacy versions
+
 ## 6.1.5
 - Add support for Angular 17 [#204](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/204)
 
