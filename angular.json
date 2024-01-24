@@ -87,18 +87,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "firebaseui-angular:build"
+            "buildTarget": "firebaseui-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "firebaseui-angular:build:production"
+              "buildTarget": "firebaseui-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "firebaseui-angular:build"
+            "buildTarget": "firebaseui-angular:build"
           }
         },
         "test": {
