@@ -1,5 +1,8 @@
 # Changelog
 
+# 6.2.1
+- Add support for AngularFire 17 [#206](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/206) (Thanks to @garri1105)
+
 ## 6.2.0
 - Update dependencies
 - Remove support for legacy versions
