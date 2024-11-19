@@ -1,5 +1,8 @@
 # Changelog
 
+# 6.3.0
+- Add support for AngularFire 18 [#209](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/209)
+
 # 6.2.1
 - Add support for AngularFire 17 [#206](https://github.com/RaphaelJenni/FirebaseUI-Angular/pull/206) (Thanks to @garri1105)
 

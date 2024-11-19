@@ -4,13 +4,13 @@
     "baseUrl": "./",
     "importHelpers": true,
     "module": "es2020",
+    "esModuleInterop": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "target": "ES2022",
-    "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "node_modules/@types"
     ],

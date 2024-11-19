@@ -23,7 +23,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: checkout
         uses: actions/checkout@v4.1.0
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
       - run: npm run build-lib
       - run: npm publish ./dist/firebaseui-angular-library
         if: github.ref_type == 'tag'
