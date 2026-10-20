@@ -1,5 +1,8 @@
 # Changelog
 
+# Deprecated
+- This project is no longer maintained. Use the official [`@firebase-oss/ui-angular`](https://www.npmjs.com/package/@firebase-oss/ui-angular) instead, see [MIGRATION.md](MIGRATION.md).
+
 # 6.3.0
 - Add support for AngularFire 18 [#209](https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/209)
 
