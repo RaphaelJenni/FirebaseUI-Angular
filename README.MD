@@ -3,6 +3,17 @@
 
 # FirebaseUi-Angular
 
+> [!WARNING]
+> **This project is deprecated and no longer maintained.**
+>
+> It wraps FirebaseUI for Web v6 (`firebaseui`), which has not been released since August 2023.
+> Google now provides an official Angular package as part of FirebaseUI v7:
+> [`@firebase-oss/ui-angular`](https://www.npmjs.com/package/@firebase-oss/ui-angular)
+> ([source](https://github.com/firebase/firebaseui-web)).
+>
+> See the **[migration guide](MIGRATION.md)** for how to switch. The last release of this library is 6.3.0
+> (Angular 18, AngularFire 18, Firebase 11). Thanks to everyone who used and contributed to it!
+
 ![Screenshot of Login screen](https://raw.githubusercontent.com/RaphaelJenni/FirebaseUI-Angular/master/assets/LoginScreen.PNG)
 
 ## Compatibility
